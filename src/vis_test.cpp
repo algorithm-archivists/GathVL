@@ -10,7 +10,7 @@ int main() {
     camera cam = camera({250, 250}, {500, 500});
     scene s = scene({1000, 1000}, "/tmp/img");
 
-    create_circle(&s, 250.0, {250.0, 250.0}, {0.0, 0.0, 1.0, 1.0});
+    create_circle(s, 250.0, {250.0, 250.0}, {0.0, 0.0, 1.0, 1.0});
 
     for (int i = 0; i < 51; ++i) {
         std::string url, number;
@@ -18,14 +18,11 @@ int main() {
         ss << std::setw(5) << std::setfill('0') << i;
         number = ss.str();
 
-        cam.move({10, 10});
+        cam.move({-5, -5});
 
         url = s.url_base + number + ".png";
-        cam.write_to_png(&s, url.c_str());
+        cam.write_to_png(s, url.c_str());
     }
-
-    cam.destroy();
-    s.destroy();
 
     return 0;
 }

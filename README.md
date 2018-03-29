@@ -1,1 +1,3 @@
-# SegVL
+# GalVL
+
+A **better** CalVL
