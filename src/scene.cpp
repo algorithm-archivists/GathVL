@@ -14,13 +14,14 @@ void scene::scene_init() {
     cairo_fill(scene_ctx);
 }
 
+void scene::draw() {
+    for (shape s : shape_vector) {
+        s.draw(scene_ctx, s);
+    }
+}
+
 void scene::clear() {
     cairo_set_source_rgba(scene_ctx, bg_clr.r, bg_clr.g, bg_clr.b, bg_clr.a);
     cairo_set_operator(scene_ctx, CAIRO_OPERATOR_SOURCE);
     cairo_paint(scene_ctx);
-}
-
-void scene::destroy(){
-    cairo_destroy(scene_ctx);
-    cairo_surface_destroy(scene_surface);
 }

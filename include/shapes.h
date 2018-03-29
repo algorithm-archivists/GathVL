@@ -5,11 +5,15 @@
 #include "vec.h"
 #include "color.h"
 
-struct scene;
-
 enum shape_types {
     ELLIPSE,
-    RECTANGLE
+    RECTANGLE,
+    ARC
+};
+
+struct extra {
+    double arc_start_angle,
+            arc_end_angle;
 };
 
 struct shape {
@@ -17,17 +21,16 @@ struct shape {
     color clr;
     vec location;
     vec size;
-    double angle;
-    void (*handler)(cairo_t *, shape &);
+    double rotation;
+    struct extra;
+    void (*draw)(cairo_t *, shape &s);
 };
 
-void ellipse(shape &shp, color ellipse_clr, vec location, vec size,
-                double angle);
+shape ellipse(color ellipse_clr, vec location, vec size, double rotation);
 
-void rectangle(shape &shp, color rec_clr, vec location, vec size, double angle);
+shape rectangle(color rec_clr, vec location, vec size, double rotation);
 
-void create_circle(scene &s, double radius, vec location, color clr);
-
-void create_rectangle(scene &s, vec size, vec location, color clr);
+shape arc(color arc_clr, vec location, vec size, double start_angle,
+            double end_angle, double rotation);
 
 #endif //SHAPES_H

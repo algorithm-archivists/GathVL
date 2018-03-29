@@ -7,9 +7,9 @@ void camera::camera_init() {
 }
 
 void camera::clear() {
-    cairo_set_source_rgba(cam_ctx, 0, 0, 0, 0);
-    cairo_set_operator(cam_ctx, CAIRO_OPERATOR_SOURCE);
-    cairo_paint(cam_ctx);
+        cairo_set_source_rgba(cam_ctx, 0, 0, 0, 0);
+        cairo_set_operator(cam_ctx, CAIRO_OPERATOR_SOURCE);
+        cairo_paint(cam_ctx);
 }
 
 void camera::move(vec displace) {

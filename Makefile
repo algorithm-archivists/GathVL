@@ -11,7 +11,7 @@ DEPS = include/vec.h include/scene.h include/camera.h include/shapes.h
 
 $(BINS): $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $(BINS) $^ $(CAIROFLAGS)
-	./vis_test
+	#./vis_test
 
 %.o: src/%.cpp $(DEPS)
 	$(CXX) $(CXXFLAGS) -c -o $@ $< $(CAIROFLAGS)

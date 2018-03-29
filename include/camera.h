@@ -38,8 +38,6 @@ struct camera {
     void draw(scene &s);
 
     void write_to_png(scene &s, const char *url);
-
-    void destroy();
 };
 
 #endif //CAMERA_H
