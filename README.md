@@ -1,3 +1,3 @@
-# GalVL
+# GathVL
 
 A **better** CalVL
