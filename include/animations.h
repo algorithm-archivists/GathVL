@@ -5,9 +5,9 @@
 #include "vec.h"
 #include "color.h"
 
-struct scene;
+struct shape;
 
-void create_ellipse(std::vector<scene*> s_vec, color ellipse_clr, vec location,
-                        vec size, double angle);
+std::vector<shape> create_ellipse(color ellipse_clr, vec location, vec size,
+                                    double rotation, int frames);
 
 #endif //ANIMATIONS_H
