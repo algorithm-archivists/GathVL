@@ -7,7 +7,7 @@
 
 struct shape;
 
-std::vector<shape> create_ellipse(color ellipse_clr, vec location, vec size,
-                                    double rotation, int frames);
+shape draw_ellipse(color ellipse_clr, vec location, vec size, double rotation,
+                    int frame, vec interval);
 
 #endif //ANIMATIONS_H

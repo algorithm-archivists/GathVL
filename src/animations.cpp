@@ -1,20 +1,16 @@
 #include "../include/animations.h"
 #include "../include/shapes.h"
 
-std::vector<shape> create_ellipse(color ellipse_clr, vec location, vec size,
-                                    double rotation, int frames) {
-    std::vector<shape> shp_vec;
+shape draw_ellipse(color ellipse_clr, vec location, vec size, double rotation,
+                    int frame, vec interval) {
+    shape shp;
 
-    for (int i = 0; i < frames - 1; ++i) {
-        shape shp = arc(ellipse_clr, location, size,
-                            {0, i * 2.0 * M_PI / frames}, rotation);
-
-        shp_vec.push_back(shp);
+    if (frame > interval.x || frame < interval.y - 1) {
+        shp = arc(ellipse_clr, location, size, {0, (frame - interval.x) * 2.0
+                    * M_PI / (interval.y - interval.x)}, rotation);
+    } else if (frame == interval.y) {
+        shp = ellipse(ellipse_clr, location, size, rotation);
     }
 
-    shape shp = ellipse(ellipse_clr, location, size, rotation);
-
-    shp_vec.push_back(shp);
-
-    return shp_vec;
+    return shp;
 }
