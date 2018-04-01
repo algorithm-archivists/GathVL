@@ -10,7 +10,7 @@
 struct scene {
     vec size;
     color bg_clr;
-    std::vector<shape> shape_vector;
+    std::vector<shape*> shape_vector;
 
     scene() :
             size({600, 400}), bg_clr({0.0, 0.0, 0.0, 1.0}) {}

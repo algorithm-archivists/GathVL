@@ -22,7 +22,7 @@ struct shape {
     vec size;
     double rotation;
     extra ex;
-    void (*draw)(cairo_t *, shape &s);
+    void (*draw)(cairo_t *, shape *s);
 };
 
 shape ellipse(color ellipse_clr, vec location, vec size, double rotation);

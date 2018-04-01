@@ -4,27 +4,27 @@
 #include <stdlib.h>
 #include <cmath>
 
-static void arc_draw(cairo_t *ctx, shape &shp) {
-    cairo_set_source_rgba(ctx, shp.clr.r, shp.clr.g, shp.clr.b, shp.clr.a);
-    cairo_rotate(ctx, shp.rotation);
+static void arc_draw(cairo_t *ctx, shape *shp) {
+    cairo_set_source_rgba(ctx, shp->clr.r, shp->clr.g, shp->clr.b, shp->clr.a);
+    cairo_rotate(ctx, shp->rotation);
 
-    if (shp.size.x < shp.size.y) {
-        cairo_scale(ctx, shp.size.x / shp.size.y, 1.0);
-        cairo_arc(ctx, shp.loc.x, shp.loc.y, shp.size.y, shp.ex.a.x,
-                    shp.ex.a.y);
-        cairo_scale(ctx, shp.size.y / shp.size.x, 1.0);
-    } else if (shp.size.x > shp.size.y) {
-        cairo_scale(ctx, 1.0, shp.size.y / shp.size.x);
-        cairo_arc(ctx, shp.loc.x, shp.loc.y, shp.size.x, shp.ex.a.x,
-                    shp.ex.a.y);
-        cairo_scale(ctx, 1.0, shp.size.x / shp.size.y);
-    } else if (shp.size.x == shp.size.y && shp.size.x != 0) {
-        cairo_arc(ctx, shp.loc.x, shp.loc.y, shp.size.x, shp.ex.a.x,
-                    shp.ex.a.y);
+    if (shp->size.x < shp->size.y) {
+        cairo_scale(ctx, shp->size.x / shp->size.y, 1.0);
+        cairo_arc(ctx, shp->loc.x, shp->loc.y, shp->size.y, shp->ex.a.x,
+                    shp->ex.a.y);
+        cairo_scale(ctx, shp->size.y / shp->size.x, 1.0);
+    } else if (shp->size.x > shp->size.y) {
+        cairo_scale(ctx, 1.0, shp->size.y / shp->size.x);
+        cairo_arc(ctx, shp->loc.x, shp->loc.y, shp->size.x, shp->ex.a.x,
+                    shp->ex.a.y);
+        cairo_scale(ctx, 1.0, shp->size.x / shp->size.y);
+    } else if (shp->size.x == shp->size.y && shp->size.x != 0) {
+        cairo_arc(ctx, shp->loc.x, shp->loc.y, shp->size.x, shp->ex.a.x,
+                    shp->ex.a.y);
     }
 
     cairo_stroke(ctx);
-    cairo_rotate(ctx, -1.0 * shp.rotation);
+    cairo_rotate(ctx, -1.0 * shp->rotation);
 }
 
 shape ellipse(color ellipse_clr, vec location, vec size, double rotation) {

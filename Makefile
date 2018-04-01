@@ -6,8 +6,8 @@ CXXFLAGS = -std=c++11 -g -O2 #-Wall -march=native -fopenmp -fno-omit-frame-point
 
 CAIROFLAGS = `pkg-config --cflags --libs cairo`
 BINS = vis_test
-OBJ = vis_test.o scene.o camera.o shapes.o animations.o
-DEPS = include/vec.h include/scene.h include/camera.h include/shapes.h include/animations.h
+OBJ = vis_test.o scene.o camera.o shapes.o animators.o
+DEPS = include/vec.h include/scene.h include/camera.h include/shapes.h include/animators.h
 
 $(BINS): $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $(BINS) $^ $(CAIROFLAGS)
