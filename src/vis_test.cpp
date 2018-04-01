@@ -7,7 +7,7 @@
 #include "../include/scene.h"
 #include "../include/shapes.h"
 #include "../include/color.h"
-#include "../include/animations.h"
+#include "../include/animators.h"
 
 int main() {
     camera cam = camera("/tmp/img");
@@ -28,6 +28,7 @@ int main() {
 
         va.update(i, va);
 
+        sleep(1);
         url = cam.url_base + number + ".png";
         cam.write_to_png(s, url.c_str());
     }
