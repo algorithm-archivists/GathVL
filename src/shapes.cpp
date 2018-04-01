@@ -54,3 +54,22 @@ shape arc(color arc_clr, vec location, vec size, vec angles, double rotation) {
 
     return shp;
 }
+
+static void line_draw(cairo_t * ctx, shape *s) {
+    cairo_set_source_rgba(ctx, s->clr.r, s->clr.g, s->clr.b, s->clr.a);
+    cairo_move_to(ctx, s->loc.x, s->loc.y);
+    cairo_line_to(ctx, s->ex.a.x, s->ex.a.y);
+    cairo_stroke(ctx);
+}
+
+shape line(color line_clr, vec start, vec end) {
+    shape shp;
+
+    shp.type = LINE;
+    shp.clr = line_clr;
+    shp.loc = start;
+    shp.ex.a = end;
+    shp.draw = line_draw;
+
+    return shp;
+}

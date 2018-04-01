@@ -8,7 +8,8 @@
 enum shape_types {
     ELLIPSE,
     RECTANGLE,
-    ARC
+    ARC,
+    LINE
 };
 
 struct extra {
@@ -30,5 +31,7 @@ shape ellipse(color ellipse_clr, vec location, vec size, double rotation);
 shape rectangle(color rec_clr, vec location, vec size, double rotation);
 
 shape arc(color arc_clr, vec location, vec size, vec angles, double rotation);
+
+shape line(color line_clr, vec start, vec end);
 
 #endif //SHAPES_H
