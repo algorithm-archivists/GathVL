@@ -7,9 +7,9 @@
 
 enum shape_types {
     ELLIPSE,
-    RECTANGLE,
     ARC,
-    LINE
+    LINE,
+    RECTANGLE
 };
 
 struct extra {
@@ -22,16 +22,19 @@ struct shape {
     vec loc;
     vec size;
     double rotation;
+    bool fill;
     extra ex;
     void (*draw)(cairo_t *, shape *s);
 };
 
-shape ellipse(color ellipse_clr, vec location, vec size, double rotation);
+shape ellipse(color ellipse_clr, vec location, vec size, double rotation,
+                bool fill);
 
-shape rectangle(color rec_clr, vec location, vec size, double rotation);
-
-shape arc(color arc_clr, vec location, vec size, vec angles, double rotation);
+shape arc(color arc_clr, vec location, vec size, vec angles);
 
 shape line(color line_clr, vec start, vec end);
+
+shape rectangle(color rec_clr, vec location, vec size, double rotation,
+                bool fill);
 
 #endif //SHAPES_H

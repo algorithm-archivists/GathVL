@@ -23,11 +23,15 @@ static void arc_draw(cairo_t *ctx, shape *shp) {
                     shp->ex.a.y);
     }
 
+    if (shp->fill)
+        cairo_fill(ctx);
+
     cairo_stroke(ctx);
     cairo_rotate(ctx, -1.0 * shp->rotation);
 }
 
-shape ellipse(color ellipse_clr, vec location, vec size, double rotation) {
+shape ellipse(color ellipse_clr, vec location, vec size, double rotation,
+                bool fill) {
     shape shp;
 
     shp.type = ELLIPSE;
@@ -36,12 +40,13 @@ shape ellipse(color ellipse_clr, vec location, vec size, double rotation) {
     shp.size = {abs(size.x), abs(size.y)};
     shp.ex.a = {0.0, 2.0 * M_PI};
     shp.rotation = rotation;
+    shp.fill = fill;
     shp.draw = arc_draw;
 
     return shp;
 }
 
-shape arc(color arc_clr, vec location, vec size, vec angles, double rotation) {
+shape arc(color arc_clr, vec location, vec size, vec angles) {
     shape shp;
 
     shp.type = ARC;
@@ -49,7 +54,7 @@ shape arc(color arc_clr, vec location, vec size, vec angles, double rotation) {
     shp.loc = location;
     shp.size = size;
     shp.ex.a = angles;
-    shp.rotation = rotation;
+    shp.fill = false;
     shp.draw = arc_draw;
 
     return shp;
@@ -70,6 +75,34 @@ shape line(color line_clr, vec start, vec end) {
     shp.loc = start;
     shp.ex.a = end;
     shp.draw = line_draw;
+
+    return shp;
+}
+
+static void rectangle_draw(cairo_t *ctx, shape *shp) {
+    cairo_set_source_rgba(ctx, shp->clr.r, shp->clr.g, shp->clr.b, shp->clr.a);
+    cairo_rotate(ctx, shp->rotation);
+
+    cairo_rectangle(ctx, shp->loc.x, shp->loc.y, shp->size.x, shp->size.y);
+
+    if (shp->fill)
+        cairo_fill(ctx);
+
+    cairo_stroke(ctx);
+    cairo_rotate(ctx, -1.0 * shp->rotation);
+}
+
+shape rectangle(color rectangle_clr, vec location, vec size, double rotation,
+                    bool fill) {
+    shape shp;
+
+    shp.type = RECTANGLE;
+    shp.clr = rectangle_clr;
+    shp.loc = location;
+    shp.size = size;
+    shp.rotation = rotation;
+    shp.fill = fill;
+    shp.draw = rectangle_draw;
 
     return shp;
 }

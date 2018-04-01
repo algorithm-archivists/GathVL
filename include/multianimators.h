@@ -18,12 +18,10 @@ struct vec_multianimator {
     std::vector<vec_param> params;
     void (*update)(int frame, vec_multianimator &ma);
 
-    vec_multianimator(std::vector<vec_param> params_vec) :
-            params(params_vec), update(vec_update) {}
+    vec_multianimator() : update(vec_update) {}
 
-    vec_multianimator(std::vector<vec_param> params_vec,
-                        void(*update0)(int frame, vec_multianimator &ma)) :
-            params(params_vec), update(update0) {}
+    vec_multianimator(void(*update0)(int frame, vec_multianimator &ma)) :
+            update(update0) {}
 };
 
 #endif //MULTIANIMATORS_H
