@@ -23,11 +23,12 @@ int main() {
     shape b_node = ellipse({1.0, 0.0, 0.0, 1.0}, {310.0, 210.0}, {0.0, 0.0},
                             0.0, true);
 
-    s.shape_vector.push_back(&line_a);
-    s.shape_vector.push_back(&line_b);
-    s.shape_vector.push_back(&a_node);
-    s.shape_vector.push_back(&b_node);
-    s.shape_vector.push_back(&root_node);
+    s.add_layer();
+    s.layers[1].shapes.push_back(&line_a);
+    s.layers[1].shapes.push_back(&line_b);
+    s.layers[0].shapes.push_back(&a_node);
+    s.layers[0].shapes.push_back(&b_node);
+    s.layers[0].shapes.push_back(&root_node);
 
     vec_multianimator ma = vec_multianimator();
     ma.params.push_back({&root_node.size, {0.0, 0.0}, {50.0, 50.0}, 0, 49});
