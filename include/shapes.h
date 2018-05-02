@@ -38,6 +38,10 @@ struct ellipse : shape {
             : shape(ELLIPSE, clr0), location(location0), size(size0),
                 rotation(rotation0), fill(fill0), angles({0.0, 2.0 * M_PI}) {}
 
+    ellipse(ellipse *e) : shape(ELLIPSE, e->clr), location(e->location),
+            size(e->size), rotation(e->rotation), fill(e->fill),
+            angles(e->angles) {}
+
     void draw(cairo_t *);
 };
 
@@ -52,6 +56,9 @@ struct arc : shape {
     arc(color clr0, vec location0, vec size0, vec angles0) : shape(ARC, clr0),
             location(location0), size(size0), angles(angles0) {}
 
+    arc(arc *a) : shape(ARC, a->clr), location(a->location), size(a->size),
+            angles(a->angles) {}
+
     void draw(cairo_t *);
 };
 
@@ -63,6 +70,8 @@ struct line : shape {
 
     line(color clr0, vec start0, vec end0) : shape(LINE, clr0), start(start0),
             end(end0) {}
+
+    line(line *l) : shape(LINE, l->clr), start(l->start), end(l->end) {}
 
     void draw(cairo_t *);
 };
@@ -80,6 +89,9 @@ struct rectangle : shape {
     rectangle(color clr0, vec location0, vec size0, double rotation0,
             bool fill0) : shape(RECTANGLE, clr0), location(location0),
                 size(size0), rotation(rotation0), fill(fill0) {}
+
+    rectangle(rectangle *r) : shape(RECTANGLE, r->clr), location(r->location),
+            size(r->size), rotation(r->rotation), fill(r->fill) {}
 
     void draw(cairo_t *);
 };
