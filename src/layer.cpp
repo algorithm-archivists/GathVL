@@ -7,5 +7,9 @@ void layer::draw(cairo_t *ctx) {
 }
 
 void layer::clear() {
-    shapes.clear();
+    while (shapes.size() > 0) {
+        auto shp = shapes.back();
+        shapes.pop_back();
+        delete shp;
+    }
 }

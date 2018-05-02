@@ -2,7 +2,6 @@
 #include <sstream>
 #include <iomanip>
 #include <vector>
-#include <memory>
 #include "../include/camera.h"
 #include "../include/scene.h"
 #include "../include/shapes.h"
@@ -13,26 +12,18 @@ int main() {
     camera cam = camera({400, 400}, "/tmp/img");
     scene s = scene({400, 400}, {0, 0, 0, 1});
 
-    auto root =
-        std::make_unique<ellipse>(new ellipse({1.0, 0.0, 0.0, 1.0},
-                                                {200.0, 110.0}, {0.0, 0.0}, 0.0,
-                                                true));
+    ellipse *root = new ellipse({1.0, 0.0, 0.0, 1.0}, {200.0, 110.0},
+                                    {0.0, 0.0}, 0.0, true);
 
-    auto line_a =
-        std::make_unique<line>(new line({1.0, 1.0, 1.0, 1.0}, {200.0, 110.0},
-                                            {200.0, 110.0}));
-    auto line_b =
-        std::make_unique<line>(new line({1.0, 1.0, 1.0, 1.0}, {200.0, 110.0},
-                                            {200.0, 110.0}));
+    line *line_a = new line({1.0, 1.0, 1.0, 1.0}, {200.0, 110.0},
+                                {200.0, 110.0});
+    line *line_b = new line({1.0, 1.0, 1.0, 1.0}, {200.0, 110.0},
+                                {200.0, 110.0});
 
-    auto a_node =
-        std::make_unique<ellipse>(new ellipse({1.0, 0.0, 0.0, 1.0},
-                                                {110.0, 210.0}, {0.0, 0.0}, 0.0,
-                                                true));
-    auto b_node =
-        std::make_unique<ellipse>(new ellipse({1.0, 0.0, 0.0, 1.0},
-                                                {310.0, 210.0}, {0.0, 0.0}, 0.0,
-                                                true));
+    ellipse *a_node = new ellipse({1.0, 0.0, 0.0, 1.0}, {110.0, 210.0},
+                                    {0.0, 0.0}, 0.0, true);
+    ellipse *b_node = new ellipse({1.0, 0.0, 0.0, 1.0}, {310.0, 210.0},
+                                    {0.0, 0.0}, 0.0, true);
 
     s.add_layer();
     s.layers[1].shapes.emplace_back(line_a);
