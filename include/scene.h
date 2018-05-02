@@ -5,14 +5,7 @@
 #include <cairo.h>
 #include "vec.h"
 #include "color.h"
-#include "shapes.h"
-
-struct layer {
-    std::vector<shape*> shapes;
-
-    void draw(cairo_t *ctx);
-    void clear();
-};
+#include "layer.h"
 
 struct scene {
     vec size;

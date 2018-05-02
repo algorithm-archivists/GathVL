@@ -1,16 +1,6 @@
 #include "../include/scene.h"
 #include <iterator>
 
-void layer::draw(cairo_t *ctx) {
-    for (auto s : shapes) {
-        s->draw(ctx, s);
-    }
-}
-
-void layer::clear() {
-    shapes.clear();
-}
-
 void scene::draw(cairo_t *ctx) {
     for (auto l : layers) {
         l.draw(ctx);
