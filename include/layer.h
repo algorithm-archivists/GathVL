@@ -10,10 +10,14 @@
 struct layer {
     std::vector<shape*> shapes;
 
-    layer() {}
-
     void draw(cairo_t *ctx);
+    void update(int frame);
+
     void clear();
+
+    ~layer() {
+//        clear();
+    }
 };
 
 #endif //LAYER_h

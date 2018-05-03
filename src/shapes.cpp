@@ -1,6 +1,20 @@
 #include "../include/shapes.h"
 #include "../include/scene.h"
 
+void shape::update(int frame) {
+    for (auto anim : animators) {
+        anim->update(frame);
+    }
+}
+
+void shape::clear_animators() {
+    while (animators.size() > 0) {
+        auto anim = animators.back();
+        animators.pop_back();
+        delete anim;
+    }
+}
+
 void ellipse::draw(cairo_t *ctx) {
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
     cairo_rotate(ctx, rotation);

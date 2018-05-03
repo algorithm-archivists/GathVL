@@ -6,6 +6,12 @@ void layer::draw(cairo_t *ctx) {
     }
 }
 
+void layer::update(int frame) {
+    for (auto shp : shapes) {
+        shp->update(frame);
+    }
+}
+
 void layer::clear() {
     while (shapes.size() > 0) {
         auto shp = shapes.back();
