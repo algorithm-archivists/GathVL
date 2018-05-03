@@ -10,6 +10,7 @@ struct animator {
     virtual void update(const int frame) = 0;
 
     animator(int start, int end) : start_frame(start), end_frame(end) {}
+    virtual ~animator() {}
 };
 
 struct vec_animator : animator {

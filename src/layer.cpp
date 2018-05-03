@@ -11,12 +11,3 @@ void layer::update(int frame) {
         shp->update(frame);
     }
 }
-
-void layer::clear() {
-    while (shapes.size() > 0) {
-        auto shp = shapes.back();
-        shapes.pop_back();
-        shp->clear_animators();
-        delete shp;
-    }
-}

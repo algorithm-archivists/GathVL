@@ -2,20 +2,12 @@
 #include "../include/scene.h"
 
 void shape::update(const int frame) {
-    for (auto anim : animators) {
+    for (auto& anim : animators) {
         anim->update(frame);
     }
 }
 
-void shape::clear_animators() {
-    while (animators.size() > 0) {
-        auto anim = animators.back();
-        animators.pop_back();
-        delete anim;
-    }
-}
-
-void ellipse::draw(cairo_t *ctx) {
+void ellipse::draw(cairo_t *ctx) const {
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
     cairo_rotate(ctx, rotation);
 
@@ -38,7 +30,7 @@ void ellipse::draw(cairo_t *ctx) {
     cairo_rotate(ctx, -1.0 * rotation);
 }
 
-void arc::draw(cairo_t *ctx) {
+void arc::draw(cairo_t *ctx) const {
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
 
     if (size.x < size.y) {
@@ -56,14 +48,14 @@ void arc::draw(cairo_t *ctx) {
     cairo_stroke(ctx);
 }
 
-void line::draw(cairo_t * ctx) {
+void line::draw(cairo_t * ctx) const {
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
     cairo_move_to(ctx, start.x, start.y);
     cairo_line_to(ctx, end.x, end.y);
     cairo_stroke(ctx);
 }
 
-void rectangle::draw(cairo_t *ctx) {
+void rectangle::draw(cairo_t *ctx) const {
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
     cairo_rotate(ctx, rotation);
 
