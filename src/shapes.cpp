@@ -1,7 +1,7 @@
 #include "../include/shapes.h"
 #include "../include/scene.h"
 
-void shape::update(int frame) {
+void shape::update(const int frame) {
     for (auto anim : animators) {
         anim->update(frame);
     }

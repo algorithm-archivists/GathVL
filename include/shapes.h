@@ -8,24 +8,16 @@
 #include "color.h"
 #include "animators.h"
 
-enum shape_type {
-    ELLIPSE,
-    ARC,
-    LINE,
-    RECTANGLE
-};
-
 struct shape {
-    shape_type type;
     color clr;
     std::vector<animator*> animators;
 
     virtual void draw(cairo_t *) = 0;
-    void update(int frame);
+    void update(const int frame);
     void clear_animators();
 
-    shape(shape_type type0) : type(type0), clr({1.0, 1.0, 1.0, 1.0}) {}
-    shape(shape_type type0, color clr0) : type(type0), clr(clr0) {}
+    shape() : clr({1.0, 1.0, 1.0, 1.0}) {}
+    shape(color shape_clr) : clr(shape_clr) {}
 };
 
 struct ellipse : shape {
@@ -35,20 +27,15 @@ struct ellipse : shape {
     double rotation;
     bool fill;
 
-    void draw(cairo_t *);
+    void draw(cairo_t *) override;
 
-    ellipse(vec location0, vec size0, double rotation0, bool fill0) :
-            shape(ELLIPSE), location(location0), size(size0),
-                rotation(rotation0), fill(fill0), angles({0.0, 2.0 * M_PI}) {}
+    ellipse(vec loc, vec sz, double rotate, bool elp_fill) :
+        location(loc), size(sz), rotation(rotate), fill(elp_fill),
+        angles({0.0, 2.0 * M_PI}) {}
 
-    ellipse(color clr0, vec location0, vec size0, double rotation0, bool fill0)
-            : shape(ELLIPSE, clr0), location(location0), size(size0),
-                rotation(rotation0), fill(fill0), angles({0.0, 2.0 * M_PI}) {}
-
-    ellipse(ellipse *e) : shape(ELLIPSE, e->clr), location(e->location),
-            size(e->size), rotation(e->rotation), fill(e->fill),
-            angles(e->angles) {}
-
+    ellipse(color elp_clr, vec loc, vec sz, double rotate, bool elp_fill) :
+        shape(elp_clr), location(loc), size(sz), rotation(rotate),
+        fill(elp_fill), angles({0.0, 2.0 * M_PI}) {}
 };
 
 struct arc : shape {
@@ -56,30 +43,25 @@ struct arc : shape {
     vec size;
     vec angles;
 
-    void draw(cairo_t *);
+    void draw(cairo_t *) override;
 
-    arc(vec location0, vec size0, vec angles0) : shape(ARC),
-            location(location0), size(size0), angles(angles0) {}
+    arc(vec loc, vec sz, vec arc_angles) :  location(loc), size(sz),
+        angles(arc_angles) {}
 
-    arc(color clr0, vec location0, vec size0, vec angles0) : shape(ARC, clr0),
-            location(location0), size(size0), angles(angles0) {}
-
-    arc(arc *a) : shape(ARC, a->clr), location(a->location), size(a->size),
-            angles(a->angles) {}
+    arc(color arc_clr, vec loc, vec sz, vec arc_angles) : shape(arc_clr),
+        location(loc), size(sz), angles(arc_angles) {}
 };
 
 struct line : shape {
     vec start;
     vec end;
 
-    void draw(cairo_t *);
+    void draw(cairo_t *) override;
 
-    line(vec start0, vec end0) : shape(LINE), start(start0), end(end0) {}
+    line(vec line_start, vec line_end) : start(line_start), end(line_end) {}
 
-    line(color clr0, vec start0, vec end0) : shape(LINE, clr0), start(start0),
-            end(end0) {}
-
-    line(line *l) : shape(LINE, l->clr), start(l->start), end(l->end) {}
+    line(color line_clr, vec line_start, vec line_end) : shape(line_clr),
+        start(line_start), end(line_end) {}
 };
 
 struct rectangle : shape {
@@ -88,18 +70,14 @@ struct rectangle : shape {
     double rotation;
     bool fill;
 
-    void draw(cairo_t *);
+    void draw(cairo_t *) override;
 
-    rectangle(vec location0, vec size0, double rotation0, bool fill0) :
-            shape(RECTANGLE), location(location0), size(size0),
-            rotation(rotation0), fill(fill0) {}
+    rectangle(vec loc, vec sz, double rotate, bool rec_fill) : location(loc),
+        size(sz), rotation(rotate), fill(rec_fill) {}
 
-    rectangle(color clr0, vec location0, vec size0, double rotation0,
-            bool fill0) : shape(RECTANGLE, clr0), location(location0),
-                size(size0), rotation(rotation0), fill(fill0) {}
-
-    rectangle(rectangle *r) : shape(RECTANGLE, r->clr), location(r->location),
-            size(r->size), rotation(r->rotation), fill(r->fill) {}
+    rectangle(color rec_clr, vec loc, vec sz, double rotate, bool rec_fill) :
+        shape(rec_clr), location(loc), size(sz), rotation(rotate),
+        fill(rec_fill) {}
 };
 
 #endif //SHAPES_H

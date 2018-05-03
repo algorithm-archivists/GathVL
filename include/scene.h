@@ -16,7 +16,7 @@ struct scene {
     std::vector<layer> layers;
 
     void draw(cairo_t *ctx);
-    void update(int frame);
+    void update(const int frame);
 
     int add_shape(shape *shp, int layer_pos);
     int add_animator(animator *anim, int layer_pos, int shape_pos);
@@ -25,6 +25,7 @@ struct scene {
     void add_layers(int num_layers);
     void add_layer_at(int position);
     void add_layers_from(int position, int num_layers);
+
     void clear_layer(int layer_num);
     void clear();
 

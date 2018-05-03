@@ -7,7 +7,7 @@ void scene::draw(cairo_t *ctx) {
     }
 }
 
-void scene::update(int frame) {
+void scene::update(const int frame) {
     for (auto l : layers) {
         l.update(frame);
     }
