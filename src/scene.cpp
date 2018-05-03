@@ -2,11 +2,11 @@
 #include <iterator>
 
 scene::scene(vec scene_size, color bg_color)
- : size(scene_size), bg_clr(bg_color),
-   surface(cairo_image_surface_create(CAIRO_FORMAT_ARGB32, static_cast<int>(size.x), static_cast<int>(size.y)), cairo_surface_destroy),
-   context(cairo_create(surface.get()), cairo_destroy) {
-    layers.emplace_back();
+    : size(scene_size), bg_clr(bg_color),
+      surface(cairo_image_surface_create(CAIRO_FORMAT_ARGB32, static_cast<int>(size.x), static_cast<int>(size.y)), cairo_surface_destroy),
+      context(cairo_create(surface.get()), cairo_destroy) {
 
+    layers.emplace_back();
     cairo_set_line_width(context.get(), 3);
     cairo_set_font_size(context.get(), 50.0);
     cairo_set_line_join(context.get(), CAIRO_LINE_JOIN_BEVEL);
@@ -18,13 +18,13 @@ void scene::draw() {
     cairo_set_operator(context.get(), CAIRO_OPERATOR_SOURCE);
     cairo_paint(context.get());
 
-    for (auto l : layers) {
+    for (const auto& l : layers) {
         l.draw(context.get());
     }
 }
 
 void scene::update(const int frame) {
-    for (auto l : layers) {
+    for (auto& l : layers) {
         l.update(frame);
     }
 }

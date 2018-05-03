@@ -13,7 +13,7 @@
 struct layer {
     std::vector<std::shared_ptr<shape>> shapes;
 
-    void draw(cairo_t *ctx);
+    void draw(cairo_t *ctx) const;
     void update(int frame);
 };
 

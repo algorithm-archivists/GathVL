@@ -5,6 +5,7 @@
 #include <string>
 
 #include <cairo.h>
+
 #include "vec.h"
 
 struct scene;

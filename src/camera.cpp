@@ -2,9 +2,9 @@
 #include "../include/scene.h"
 
 void camera::clear_camera() {
-        cairo_set_source_rgba(context.get(), 0, 0, 0, 0);
-        cairo_set_operator(context.get(), CAIRO_OPERATOR_SOURCE);
-        cairo_paint(context.get());
+    cairo_set_source_rgba(context.get(), 0, 0, 0, 0);
+    cairo_set_operator(context.get(), CAIRO_OPERATOR_SOURCE);
+    cairo_paint(context.get());
 }
 
 void camera::move_by(vec displace) {
@@ -29,8 +29,7 @@ void camera::write_to_png(scene &s, const char *url) {
 }
 
 camera::camera(vec loc, vec camera_size, std::string url)
-  : location(-1 * loc), size(camera_size), url_base(url),
-    image(cairo_image_surface_create(CAIRO_FORMAT_ARGB32, static_cast<int>(size.x), static_cast<int>(size.y)), cairo_surface_destroy),
-    context(cairo_create(image.get()), cairo_destroy) {
-}
+    : location(-1 * loc), size(camera_size), url_base(url),
+      image(cairo_image_surface_create(CAIRO_FORMAT_ARGB32, static_cast<int>(size.x), static_cast<int>(size.y)), cairo_surface_destroy),
+      context(cairo_create(image.get()), cairo_destroy) {}
 

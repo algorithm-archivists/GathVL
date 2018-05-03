@@ -19,9 +19,9 @@ struct vec_animator : animator {
 
     void update(const int frame) override;
 
-    vec_animator(int start, int end, vec *a, vec startvec, vec endvec) :
-        animator(start, end), vec_ptr(a), start_vec(startvec),
-        end_vec(endvec) {}
+    vec_animator(int start, int end, vec *a, vec startvec, vec endvec)
+        : animator(start, end), vec_ptr(a),
+          start_vec(startvec), end_vec(endvec) {}
 };
 
 #endif //ANIMATIONS_H
