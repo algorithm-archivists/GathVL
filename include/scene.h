@@ -43,6 +43,10 @@ struct scene {
     scene(vec scene_size, color bg_color) : size(scene_size), bg_clr(bg_color) {
         layers.emplace_back(layer());
     }
+
+    ~scene() {
+        clear();
+    }
 };
 
 #endif //SCENE_H

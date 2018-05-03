@@ -26,10 +26,6 @@ struct shape {
 
     shape(shape_type type0) : type(type0), clr({1.0, 1.0, 1.0, 1.0}) {}
     shape(shape_type type0, color clr0) : type(type0), clr(clr0) {}
-
-    ~shape() {
-//        clear_animators();
-    }
 };
 
 struct ellipse : shape {

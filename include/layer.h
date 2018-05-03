@@ -14,10 +14,6 @@ struct layer {
     void update(int frame);
 
     void clear();
-
-    ~layer() {
-//        clear();
-    }
 };
 
 #endif //LAYER_h
