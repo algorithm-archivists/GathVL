@@ -27,7 +27,8 @@ struct camera {
 
     camera() : camera("/tmp/img") {}
     camera(std::string url) : camera({600, 400}, url) {}
-    camera(vec camera_size, std::string url) : camera({0, 0}, camera_size, url) {}
+    camera(vec camera_size, std::string url)
+        : camera({0, 0}, camera_size, url) {}
     camera(vec loc, vec camera_size, std::string url);
 };
 

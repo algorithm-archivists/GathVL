@@ -30,6 +30,7 @@ void camera::write_to_png(scene &s, const char *url) {
 
 camera::camera(vec loc, vec camera_size, std::string url)
     : location(-1 * loc), size(camera_size), url_base(url),
-      image(cairo_image_surface_create(CAIRO_FORMAT_ARGB32, static_cast<int>(size.x), static_cast<int>(size.y)), cairo_surface_destroy),
+      image(cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
+      static_cast<int>(size.x), static_cast<int>(size.y)),
+      cairo_surface_destroy),
       context(cairo_create(image.get()), cairo_destroy) {}
-

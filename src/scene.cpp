@@ -3,7 +3,9 @@
 
 scene::scene(vec scene_size, color bg_color)
     : size(scene_size), bg_clr(bg_color),
-      surface(cairo_image_surface_create(CAIRO_FORMAT_ARGB32, static_cast<int>(size.x), static_cast<int>(size.y)), cairo_surface_destroy),
+      surface(cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
+      static_cast<int>(size.x), static_cast<int>(size.y)),
+      cairo_surface_destroy),
       context(cairo_create(surface.get()), cairo_destroy) {
 
     layers.emplace_back();
@@ -14,7 +16,8 @@ scene::scene(vec scene_size, color bg_color)
 }
 
 void scene::draw() {
-    cairo_set_source_rgba(context.get(), bg_clr.r, bg_clr.g, bg_clr.b, bg_clr.a);
+    cairo_set_source_rgba(context.get(), bg_clr.r, bg_clr.g, bg_clr.b,
+                            bg_clr.a);
     cairo_set_operator(context.get(), CAIRO_OPERATOR_SOURCE);
     cairo_paint(context.get());
 
