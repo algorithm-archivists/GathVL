@@ -10,6 +10,7 @@ struct animator {
     virtual void update(const int frame) = 0;
 
     animator(int start, int end) : start_frame(start), end_frame(end) {}
+    virtual ~animator() {}
 };
 
 struct vec_animator : animator {
@@ -18,9 +19,9 @@ struct vec_animator : animator {
 
     void update(const int frame) override;
 
-    vec_animator(int start, int end, vec *a, vec startvec, vec endvec) :
-        animator(start, end), vec_ptr(a), start_vec(startvec),
-        end_vec(endvec) {}
+    vec_animator(int start, int end, vec *a, vec startvec, vec endvec)
+        : animator(start, end), vec_ptr(a),
+          start_vec(startvec), end_vec(endvec) {}
 };
 
 #endif //ANIMATIONS_H
