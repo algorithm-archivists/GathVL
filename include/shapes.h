@@ -15,9 +15,9 @@ struct shape {
     color clr;
     std::vector<std::unique_ptr<animator>> animators;
 
-    template <typename A, typename... Args>
-    void add_animator(Args&&... args) {
-      animators.emplace_back(std::make_unique<A>(std::forward<Args>(args)...));
+    template <typename A, typename... Arg>
+    void add_animator(Arg&&... args) {
+        animators.emplace_back(std::make_unique<A>(std::forward<Arg>(args)...));
     }
 
     virtual void draw(cairo_t *) const = 0;

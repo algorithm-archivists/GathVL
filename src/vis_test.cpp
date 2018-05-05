@@ -51,15 +51,8 @@ int main() {
     s.add_shape(root, 0);
 
     for (int i = 0; i < 50; ++i) {
-        std::string url, number;
-        std::stringstream ss;
-        ss << std::setw(5) << std::setfill('0') << i;
-        number = ss.str();
-
         s.update(i);
-
-        url = cam.url_base + number + ".png";
-        cam.write_to_png(s, url.c_str());
+        cam.write_to_png(s, i);
     }
 
     return 0;
