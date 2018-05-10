@@ -2,6 +2,7 @@
 #include "../include/scene.h"
 
 #include <sstream>
+#include <iomanip>
 
 void camera::clear_camera() {
     cairo_set_source_rgba(context.get(), 0, 0, 0, 0);
@@ -34,6 +35,19 @@ void camera::write_to_png(scene &s, const int frame) {
     png_url = url + ss.str() + ".png";
 
     cairo_surface_write_to_png(image.get(), png_url.c_str());
+}
+
+void camera::record(int frames_per_sec) {
+    vid_module = std::make_unique<video_module>(url, size, frames_per_sec);
+}
+
+void camera::encode_frame(scene &s) {
+    capture(s);
+    vid_module->encode_frame(image.get());
+}
+
+void camera::stop_recording() {
+    vid_module.reset(nullptr);
 }
 
 camera::camera(vec loc, vec camera_size, std::string str)

@@ -10,7 +10,7 @@
 #include "../include/color.h"
 
 int main() {
-    camera cam({400, 400}, "/tmp/img");
+    camera cam({400, 400}, "/tmp/video.mp4");
     scene s = scene({400, 400}, {0, 0, 0, 1});
 
     auto root = std::make_shared<ellipse>(color{1.0, 0.0, 0.0, 1.0},
@@ -50,10 +50,15 @@ int main() {
     s.add_shape(b_node, 0);
     s.add_shape(root, 0);
 
-    for (int i = 0; i < 50; ++i) {
+    cam.record(25);
+
+    for (int i = 0; i < 100; ++i) {
         s.update(i);
+        cam.encode_frame(s);
         cam.write_to_png(s, i);
     }
+
+    cam.stop_recording();
 
     return 0;
 }

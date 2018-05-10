@@ -7,6 +7,7 @@
 #include <cairo.h>
 
 #include "vec.h"
+#include "video_module.h"
 
 struct scene;
 
@@ -14,6 +15,7 @@ struct camera {
     vec location, size;
     std::string url;
 
+    std::unique_ptr<video_module> vid_module;
     std::unique_ptr<cairo_surface_t, decltype(&cairo_surface_destroy)> image;
     std::unique_ptr<cairo_t, decltype(&cairo_destroy)> context;
 
@@ -23,7 +25,11 @@ struct camera {
     void move_to(vec position);
 
     void capture(scene &s);
-    void write_to_png(scene &s, const char *url);
+    void write_to_png(scene &s, const int frame);
+
+    void record(int frames_per_sec);
+    void encode_frame(scene &s);
+    void stop_recording();
 
     camera() : camera("/tmp/img") {}
     camera(std::string str) : camera({600, 400}, str) {}
