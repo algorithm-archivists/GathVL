@@ -23,30 +23,22 @@ void camera::capture(scene &s) {
     cairo_paint(context.get());
 }
 
-void camera::open_module(camera_modes mode, std::string url) {
-    switch (mode) {
-    case VIDEO:
-        module = std::make_unique<video_module>(url, size, frame_rate);
-        break;
-    case PNG:
-        module = std::make_unique<png_module>(url);
-        break;
-    default:
-        break;
+void camera::encode_frame(scene &s) {
+    capture(s);
+
+    for (const auto& m : modules) {
+        m->encode(image.get());
     }
 }
 
-void camera::encode_frame(scene &s) {
-    capture(s);
-    module->encode(image.get());
+void camera::close_modules() {
+    while (!modules.empty()) {
+        modules.pop_back();
+    }
 }
 
-void camera::close_module() {
-    module.reset(nullptr);
-}
-
-camera::camera(vec loc, vec camera_size, int frames_per_sec)
-    : location(-1 * loc), size(camera_size), frame_rate(frames_per_sec),
+camera::camera(vec loc, vec camera_size)
+    : location(-1 * loc), size(camera_size),
       image(cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
       static_cast<int>(size.x), static_cast<int>(size.y)),
       cairo_surface_destroy),

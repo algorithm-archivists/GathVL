@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 #include <cairo.h>
 
@@ -13,38 +14,33 @@
 
 struct scene;
 
-enum camera_modes {
-    NONE,
-    VIDEO,
-    PNG
-};
-
 struct camera {
+    vec size;
+
     void clear_camera();
 
     void move_by(vec displace);
     void move_to(vec position);
 
-    void capture(scene &s);
+    template <typename A, typename... Arg>
+    void add_module(Arg&&... args) {
+        modules.emplace_back(std::make_unique<A>(std::forward<Arg>(args)...));
+    }
 
-    void open_module(camera_modes mode, std::string url);
     void encode_frame(scene &s);
-    void close_module();
+    void close_modules();
 
-    camera() : camera(25) {}
-    camera(int frames_per_sec) : camera({600, 400}, frames_per_sec) {}
-    camera(vec camera_size, int frames_per_sec)
-        : camera({0, 0}, camera_size, frames_per_sec) {}
-    camera(vec loc, vec camera_size, int frames_per_sec);
+    camera() : camera({0, 0}, {600, 400}) {}
+    camera(vec camera_size) : camera({0, 0}, camera_size) {}
+    camera(vec loc, vec camera_size);
 
 private:
-    vec location, size;
-    int frame_rate;
-    enum camera_modes mode;
-    std::unique_ptr<camera_module> module;
+    vec location;
+    std::vector<std::unique_ptr<camera_module>> modules;
     std::unique_ptr<cairo_surface_t, decltype(&cairo_surface_destroy)> image;
     std::unique_ptr<cairo_t, decltype(&cairo_destroy)> context;
 
+    void capture(scene &s);
 };
 
 #endif //CAMERA_H
