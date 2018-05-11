@@ -122,7 +122,7 @@ static void write_frame(AVFormatContext *format_ctx, output_stream *ostream,
     }
 }
 
-void video_module::encode_frame(cairo_surface_t *image) {
+void video_module::encode(cairo_surface_t *image) {
     AVCodecContext *c = ostream.codec_ctx;
     AVFrame *frame = nullptr;
 
@@ -162,7 +162,7 @@ void video_module::encode_frame(cairo_surface_t *image) {
 }
 
 video_module::video_module(std::string file_url, vec vid_size, int frame_rate)
-    : url(file_url), size(vid_size), frames_per_sec(frame_rate) {
+    : camera_module(file_url), size(vid_size), frames_per_sec(frame_rate) {
     AVOutputFormat *format;
     ostream = {0};
     AVCodec *codec;

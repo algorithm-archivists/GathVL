@@ -14,6 +14,7 @@ extern "C" {
     #include <libavutil/imgutils.h>
 }
 
+#include "camera_module.h"
 #include "vec.h"
 
 struct output_stream {
@@ -27,8 +28,8 @@ struct output_stream {
     struct SwsContext *sws_ctx;
 };
 
-struct video_module {
-    void encode_frame(cairo_surface_t *surface);
+struct video_module : camera_module {
+    void encode(cairo_surface_t *image) override;
 
     video_module() : video_module("/tmp/video.mp4") {}
     video_module(std::string file_url) : video_module(file_url, {600, 400}) {}
@@ -41,7 +42,6 @@ struct video_module {
 private:
     AVFormatContext *format_ctx;
     output_stream ostream;
-    std::string url;
     vec size;
     int frames_per_sec;
 };

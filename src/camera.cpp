@@ -1,9 +1,6 @@
 #include "../include/camera.h"
 #include "../include/scene.h"
 
-#include <sstream>
-#include <iomanip>
-
 void camera::clear_camera() {
     cairo_set_source_rgba(context.get(), 0, 0, 0, 0);
     cairo_set_operator(context.get(), CAIRO_OPERATOR_SOURCE);
@@ -26,32 +23,30 @@ void camera::capture(scene &s) {
     cairo_paint(context.get());
 }
 
-void camera::write_to_png(scene &s, const int frame) {
-    capture(s);
-
-    std::string png_url;
-    std::stringstream ss;
-    ss << std::setw(5) << std::setfill('0') << frame;
-    png_url = url + ss.str() + ".png";
-
-    cairo_surface_write_to_png(image.get(), png_url.c_str());
-}
-
-void camera::record(int frames_per_sec) {
-    vid_module = std::make_unique<video_module>(url, size, frames_per_sec);
+void camera::open_module(camera_modes mode, std::string url) {
+    switch (mode) {
+    case VIDEO:
+        module = std::make_unique<video_module>(url, size, frame_rate);
+        break;
+    case PNG:
+        module = std::make_unique<png_module>(url);
+        break;
+    default:
+        break;
+    }
 }
 
 void camera::encode_frame(scene &s) {
     capture(s);
-    vid_module->encode_frame(image.get());
+    module->encode(image.get());
 }
 
-void camera::stop_recording() {
-    vid_module.reset(nullptr);
+void camera::close_module() {
+    module.reset(nullptr);
 }
 
-camera::camera(vec loc, vec camera_size, std::string str)
-    : location(-1 * loc), size(camera_size), url(str),
+camera::camera(vec loc, vec camera_size, int frames_per_sec)
+    : location(-1 * loc), size(camera_size), frame_rate(frames_per_sec),
       image(cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
       static_cast<int>(size.x), static_cast<int>(size.y)),
       cairo_surface_destroy),
