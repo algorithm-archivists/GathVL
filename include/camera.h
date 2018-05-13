@@ -7,9 +7,9 @@
 
 #include <cairo.h>
 
-#include "camera_module.h"
-#include "png_module.h"
-#include "video_module.h"
+#include "encoder.h"
+#include "png_encoder.h"
+#include "video_encoder.h"
 #include "vec.h"
 
 struct scene;
@@ -23,12 +23,12 @@ struct camera {
     void move_to(vec position);
 
     template <typename A, typename... Arg>
-    void add_module(Arg&&... args) {
-        modules.emplace_back(std::make_unique<A>(std::forward<Arg>(args)...));
+    void add_encoder(Arg&&... args) {
+        encoders.emplace_back(std::make_unique<A>(std::forward<Arg>(args)...));
     }
 
     void encode_frame(scene &s);
-    void close_modules();
+    void clear_encoders();
 
     camera() : camera({0, 0}, {600, 400}) {}
     camera(vec camera_size) : camera({0, 0}, camera_size) {}
@@ -36,7 +36,7 @@ struct camera {
 
 private:
     vec location;
-    std::vector<std::unique_ptr<camera_module>> modules;
+    std::vector<std::unique_ptr<encoder>> encoders;
     std::unique_ptr<cairo_surface_t, decltype(&cairo_surface_destroy)> image;
     std::unique_ptr<cairo_t, decltype(&cairo_destroy)> context;
 

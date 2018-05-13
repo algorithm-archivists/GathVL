@@ -26,15 +26,13 @@ void camera::capture(scene &s) {
 void camera::encode_frame(scene &s) {
     capture(s);
 
-    for (const auto& m : modules) {
-        m->encode(image.get());
+    for (const auto& e : encoders) {
+        e->encode(image.get());
     }
 }
 
-void camera::close_modules() {
-    while (!modules.empty()) {
-        modules.pop_back();
-    }
+void camera::clear_encoders() {
+    encoders.clear();
 }
 
 camera::camera(vec loc, vec camera_size)

@@ -1,5 +1,5 @@
-#ifndef VIDEO_MODULE_H
-#define VIDEO_MODULE_H
+#ifndef VIDEO_ENCODER_H
+#define VIDEO_ENCODER_H
 
 #include <memory>
 #include <string>
@@ -14,7 +14,7 @@ extern "C" {
     #include <libavutil/imgutils.h>
 }
 
-#include "camera_module.h"
+#include "encoder.h"
 #include "vec.h"
 
 struct output_stream {
@@ -28,16 +28,16 @@ struct output_stream {
     struct SwsContext *sws_ctx;
 };
 
-struct video_module : camera_module {
+struct video_encoder : encoder {
     void encode(cairo_surface_t *image) override;
 
-    video_module() : video_module("/tmp/video.mp4") {}
-    video_module(std::string file_url) : video_module(file_url, {600, 400}) {}
-    video_module(std::string file_url, vec vid_size)
-        : video_module(file_url, size, 25) {}
-    video_module(std::string file_url, vec vid_size, int frame_rate);
+    video_encoder() : video_encoder("/tmp/video.mp4") {}
+    video_encoder(std::string file_url) : video_encoder(file_url, {600, 400}) {}
+    video_encoder(std::string file_url, vec vid_size)
+        : video_encoder(file_url, size, 25) {}
+    video_encoder(std::string file_url, vec vid_size, int frame_rate);
 
-    ~video_module();
+    ~video_encoder();
 
 private:
     AVFormatContext *format_ctx;
@@ -46,4 +46,4 @@ private:
     int frames_per_sec;
 };
 
-#endif
+#endif //VIDEO_ENCODER_H

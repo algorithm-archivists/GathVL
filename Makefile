@@ -6,8 +6,8 @@ CXXFLAGS = -std=c++14 -g -O2 #-Wall -march=native -fopenmp -fno-omit-frame-point
 
 LIBFLAGS = `pkg-config --cflags --libs cairo libavformat libavcodec libswresample libswscale libavutil`
 BINS = vis_test
-OBJ = vis_test.o layer.o scene.o camera.o shapes.o animators.o video_module.o png_module.o
-DEPS = include/vec.h include/scene.h include/layer.h include/camera.h include/shapes.h include/animators.h include/video_module.h include/png_module.h include/camera_module.h
+OBJ = vis_test.o layer.o scene.o camera.o shapes.o animators.o video_encoder.o png_encoder.o
+DEPS = include/vec.h include/scene.h include/layer.h include/camera.h include/shapes.h include/animators.h include/video_encoder.h include/png_encoder.h include/encoder.h
 
 $(BINS): $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $(BINS) $^ $(LIBFLAGS)

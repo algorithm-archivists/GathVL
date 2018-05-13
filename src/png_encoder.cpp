@@ -1,9 +1,9 @@
-#include "../include/png_module.h"
+#include "../include/png_encoder.h"
 
 #include <sstream>
 #include <iomanip>
 
-void png_module::encode(cairo_surface_t *image) {
+void png_encoder::encode(cairo_surface_t *image) {
     std::string png_url;
     std::stringstream ss;
     ss << std::setw(5) << std::setfill('0') << count;
@@ -12,4 +12,4 @@ void png_module::encode(cairo_surface_t *image) {
     count++;
 }
 
-png_module::png_module(std::string url) : camera_module(url), count(0) {}
+png_encoder::png_encoder(std::string url) : encoder(url), count(0) {}

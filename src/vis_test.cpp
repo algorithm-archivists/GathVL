@@ -50,14 +50,14 @@ int main() {
     s.add_shape(b_node, 0);
     s.add_shape(root, 0);
 
-    cam.add_module<video_module>("/tmp/video.mp4", cam.size, 25);
+    cam.add_encoder<video_encoder>("/tmp/video.mp4", cam.size, 25);
 
     for (int i = 0; i < 100; ++i) {
         s.update(i);
         cam.encode_frame(s);
     }
 
-    cam.close_modules();
+    cam.clear_encoders();
 
     return 0;
 }
