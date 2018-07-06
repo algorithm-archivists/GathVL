@@ -8,17 +8,16 @@ void shape::update(const int frame) {
 }
 
 void ellipse::draw(cairo_t *ctx) const {
+    cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
     cairo_rotate(ctx, rotation);
 
     if (size.x < size.y) {
         cairo_scale(ctx, size.x / size.y, 1.0);
         cairo_arc(ctx, location.x, location.y, size.y, angles.x, angles.y);
-        cairo_scale(ctx, size.y / size.x, 1.0);
     } else if (size.x > size.y) {
         cairo_scale(ctx, 1.0, size.y / size.x);
         cairo_arc(ctx, location.x, location.y, size.x, angles.x, angles.y);
-        cairo_scale(ctx, 1.0, size.x / size.y);
     } else if (size.x == size.y && size.x != 0) {
         cairo_arc(ctx, location.x, location.y, size.x, angles.x, angles.y);
     }
@@ -28,25 +27,25 @@ void ellipse::draw(cairo_t *ctx) const {
     }
 
     cairo_stroke(ctx);
-    cairo_rotate(ctx, -1.0 * rotation);
+    cairo_restore(ctx);
 }
 
 void arc::draw(cairo_t *ctx) const {
+    cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
 
     if (size.x < size.y) {
         cairo_scale(ctx, size.x / size.y, 1.0);
         cairo_arc(ctx, location.x, location.y, size.y, angles.x, angles.y);
-        cairo_scale(ctx, size.y / size.x, 1.0);
     } else if (size.x > size.y) {
         cairo_scale(ctx, 1.0, size.y / size.x);
         cairo_arc(ctx, location.x, location.y, size.x, angles.x, angles.y);
-        cairo_scale(ctx, 1.0, size.x / size.y);
     } else if (size.x == size.y && size.x != 0) {
         cairo_arc(ctx, location.x, location.y, size.x, angles.x, angles.y);
     }
 
     cairo_stroke(ctx);
+    cairo_restore(ctx);
 }
 
 void line::draw(cairo_t * ctx) const {
@@ -57,6 +56,7 @@ void line::draw(cairo_t * ctx) const {
 }
 
 void rectangle::draw(cairo_t *ctx) const {
+    cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
     cairo_translate(ctx, location.x, location.y);
     cairo_rotate(ctx, rotation);
@@ -68,11 +68,11 @@ void rectangle::draw(cairo_t *ctx) const {
     }
 
     cairo_stroke(ctx);
-    cairo_rotate(ctx, -1.0 * rotation);
-    cairo_translate(ctx, -1.0 * location.x, -1.0 * location.y);
+    cairo_restore(ctx);
 }
 
 void text::draw(cairo_t *ctx) const {
+    cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
     cairo_translate(ctx, location.x, location.y);
     cairo_rotate(ctx, rotation);
@@ -88,11 +88,11 @@ void text::draw(cairo_t *ctx) const {
     cairo_show_text(ctx, str.c_str());
 
     cairo_stroke(ctx);
-    cairo_rotate(ctx, -1.0 * rotation);
-    cairo_translate(ctx, -1.0 * location.x, -1.0 * location.y);
+    cairo_restore(ctx);
 }
 
 void arrow::draw(cairo_t *ctx) const {
+    cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
     cairo_translate(ctx, location.x, location.y);
     cairo_rotate(ctx, rotation);
@@ -108,15 +108,14 @@ void arrow::draw(cairo_t *ctx) const {
     cairo_rotate(ctx, M_PI / 4);
 
     cairo_stroke(ctx);
-    cairo_rotate(ctx, -1.0 * rotation);
-    cairo_translate(ctx, -1.0 * location.x, -1.0 * location.y);
+    cairo_restore(ctx);
 }
 
 void curve::draw(cairo_t *ctx) const {
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
     cairo_move_to(ctx, points[0].x, points[0].y);
 
-    for (const auto point : points) {
+    for (const auto& point : points) {
         cairo_line_to(ctx, point.x, point.y);
         cairo_move_to(ctx, point.x, point.y);
     }
@@ -125,11 +124,12 @@ void curve::draw(cairo_t *ctx) const {
 }
 
 void polygon::draw(cairo_t *ctx) const {
+    cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
     cairo_translate(ctx, points[0].x, points[0].y);
     cairo_rotate(ctx, rotation);
 
-    for (const auto point : points) {
+    for (const auto& point : points) {
         cairo_line_to(ctx, point.x - points[0].x, point.y - points[0].y);
         cairo_move_to(ctx, point.x - points[0].x, point.y - points[0].y);
     }
@@ -141,6 +141,5 @@ void polygon::draw(cairo_t *ctx) const {
     }
 
     cairo_stroke(ctx);
-    cairo_rotate(ctx, -1.0 * rotation);
-    cairo_translate(ctx, -1.0 * points[0].x, -1.0 * points[0].y);
+    cairo_restore(ctx);
 }
