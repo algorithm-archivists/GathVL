@@ -110,4 +110,18 @@ struct text : shape {
         size(font_size), rotation(0.0), font(str_font) {}
 };
 
+struct arrow : shape {
+    vec location;
+    double length;
+    double rotation;
+
+    void draw(cairo_t *) const override;
+
+    arrow(vec loc, double len, double rotate) :
+        location(loc), length(len), rotation(rotate) {}
+
+    arrow(color clr, vec loc, double len, double rotate) :
+        shape(clr), location(loc), length(len), rotation(rotate) {}
+};
+
 #endif //SHAPES_H

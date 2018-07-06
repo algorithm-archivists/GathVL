@@ -58,9 +58,10 @@ void line::draw(cairo_t * ctx) const {
 
 void rectangle::draw(cairo_t *ctx) const {
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
+    cairo_translate(ctx, location.x, location.y);
     cairo_rotate(ctx, rotation);
 
-    cairo_rectangle(ctx, location.x, location.y, size.x, size.y);
+    cairo_rectangle(ctx, 0, 0, size.x, size.y);
 
     if (fill) {
         cairo_fill(ctx);
@@ -68,10 +69,12 @@ void rectangle::draw(cairo_t *ctx) const {
 
     cairo_stroke(ctx);
     cairo_rotate(ctx, -1.0 * rotation);
+    cairo_translate(ctx, -1.0 * location.x, -1.0 * location.y);
 }
 
 void text::draw(cairo_t *ctx) const {
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
+    cairo_translate(ctx, location.x, location.y);
     cairo_rotate(ctx, rotation);
 
     if (!font.empty()) {
@@ -81,9 +84,30 @@ void text::draw(cairo_t *ctx) const {
 
     cairo_set_font_size(ctx, size);
 
-    cairo_move_to(ctx, location.x, location.y);
+    cairo_move_to(ctx, 0, 0);
     cairo_show_text(ctx, str.c_str());
 
     cairo_stroke(ctx);
     cairo_rotate(ctx, -1.0 * rotation);
+    cairo_translate(ctx, -1.0 * location.x, -1.0 * location.y);
+}
+
+void arrow::draw(cairo_t *ctx) const {
+    cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
+    cairo_translate(ctx, location.x, location.y);
+    cairo_rotate(ctx, rotation);
+
+    cairo_move_to(ctx, 0, 0);
+    cairo_line_to(ctx, -1.0 * length, 0);
+    cairo_rotate(ctx, M_PI / 4);
+    cairo_move_to(ctx, 0, 0);
+    cairo_line_to(ctx, length * -0.2, 0);
+    cairo_rotate(ctx, - M_PI / 2);
+    cairo_move_to(ctx, 0, 0);
+    cairo_line_to(ctx, length * -0.2, 0);
+    cairo_rotate(ctx, M_PI / 4);
+
+    cairo_stroke(ctx);
+    cairo_rotate(ctx, -1.0 * rotation);
+    cairo_translate(ctx, -1.0 * location.x, -1.0 * location.y);
 }
