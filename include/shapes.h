@@ -38,13 +38,13 @@ struct ellipse : shape {
 
     void draw(cairo_t *) const override;
 
-    ellipse(vec loc, vec elp_size, double rotate, bool elp_fill) :
-        location(loc), size(elp_size), angles({0.0, 2.0 * M_PI}),
-        rotation(rotate), fill(elp_fill) {}
+    ellipse(vec location, vec size, double rotation, bool fill) :
+        location(location), size(size), angles({0.0, 2.0 * M_PI}),
+        rotation(rotation), fill(fill) {}
 
-    ellipse(color clr, vec loc, vec elp_size, double rotate, bool elp_fill) :
-        shape(clr), location(loc), size(elp_size), angles({0.0, 2.0 * M_PI}),
-        rotation(rotate), fill(elp_fill) {}
+    ellipse(color clr, vec location, vec size, double rotation, bool fill) :
+        shape(clr), location(location), size(size), angles({0.0, 2.0 * M_PI}),
+        rotation(rotation), fill(fill) {}
 };
 
 struct arc : shape {
@@ -54,11 +54,11 @@ struct arc : shape {
 
     void draw(cairo_t *) const override;
 
-    arc(vec loc, vec arc_size, vec arc_angles) :
-        location(loc), size(arc_size), angles(arc_angles) {}
+    arc(vec location, vec size, vec angles) :
+        location(location), size(size), angles(angles) {}
 
-    arc(color clr, vec loc, vec arc_size, vec arc_angles) :
-        shape(clr), location(loc), size(arc_size), angles(arc_angles) {}
+    arc(color clr, vec location, vec size, vec angles) :
+        shape(clr), location(location), size(size), angles(angles) {}
 };
 
 struct line : shape {
@@ -81,12 +81,12 @@ struct rectangle : shape {
 
     void draw(cairo_t *) const override;
 
-    rectangle(vec loc, vec rec_size, double rotate, bool rec_fill) :
-        location(loc), size(rec_size), rotation(rotate), fill(rec_fill) {}
+    rectangle(vec location, vec size, double rotation, bool fill) :
+        location(location), size(size), rotation(rotation), fill(fill) {}
 
-    rectangle(color clr, vec loc, vec rec_size, double rotate, bool rec_fill) :
-        shape(clr), location(loc), size(rec_size), rotation(rotate),
-        fill(rec_fill) {}
+    rectangle(color clr, vec location, vec size, double rotation, bool fill) :
+        shape(clr), location(location), size(size), rotation(rotation),
+        fill(fill) {}
 };
 
 struct text : shape {
@@ -98,18 +98,18 @@ struct text : shape {
 
     void draw(cairo_t *) const override;
 
-    text(vec loc, double text_size, const std::string& text_str) :
-        str(text_str), location(loc), size(text_size), rotation(0.0) {}
+    text(vec location, double size, const std::string& str) :
+        str(str), location(location), size(size), rotation(0.0) {}
 
-    text(vec loc, double text_size, const std::string& text_str,
-         const std::string& text_font) :
-        str(text_str), location(loc), size(text_size), rotation(0.0),
-        font(text_font) {}
+    text(vec location, double size, const std::string& str,
+         const std::string& font, double rotation) :
+        str(str), location(location), size(size), rotation(rotation),
+        font(font) {}
 
-    text(color clr, vec loc, double font_size, const std::string& text_str,
-         const std::string& text_font) :
-        shape(clr), str(text_str), location(loc), size(font_size),
-        rotation(0.0), font(text_font) {}
+    text(color clr, vec location, double size, const std::string& str,
+         const std::string& font, double rotation) :
+        shape(clr), str(str), location(location), size(size),
+        rotation(rotation), font(font) {}
 };
 
 struct arrow : shape {
@@ -119,11 +119,11 @@ struct arrow : shape {
 
     void draw(cairo_t *) const override;
 
-    arrow(vec loc, double len, double rotate) :
-        location(loc), length(len), rotation(rotate) {}
+    arrow(vec location, double length, double rotation) :
+        location(location), length(length), rotation(rotation) {}
 
-    arrow(color clr, vec loc, double len, double rotate) :
-        shape(clr), location(loc), length(len), rotation(rotate) {}
+    arrow(color clr, vec location, double length, double rotation) :
+        shape(clr), location(location), length(length), rotation(rotation) {}
 };
 
 struct curve : shape {
@@ -134,7 +134,7 @@ struct curve : shape {
     explicit curve(const std::vector<vec>& curve_points) :
         points(curve_points) {}
 
-    explicit curve(color clr, const std::vector<vec>& curve_points) :
+    curve(color clr, const std::vector<vec>& curve_points) :
         shape(clr), points(curve_points) {}
 };
 
@@ -145,16 +145,15 @@ struct polygon : shape {
 
     void draw(cairo_t *) const override;
 
-    polygon(const std::vector<vec>& curve_points, bool fill_polygon) :
-        points(curve_points), fill(fill_polygon), rotation(0) {}
+    polygon(const std::vector<vec>& curve_points, bool fill) :
+        points(curve_points), fill(fill), rotation(0) {}
 
-    polygon(const std::vector<vec>& curve_points, bool fill_polygon,
-            double rotate) :
-        points(curve_points), fill(fill_polygon), rotation(rotate) {}
+    polygon(const std::vector<vec>& curve_points, bool fill, double rotation) :
+        points(curve_points), fill(fill), rotation(rotation) {}
 
-    polygon(color clr, const std::vector<vec>& curve_points, bool fill_polygon,
-            double rotate) : shape(clr), points(curve_points),
-        fill(fill_polygon), rotation(rotate) {}
+    polygon(color clr, const std::vector<vec>& curve_points, bool fill,
+            double rotation) :
+        shape(clr), points(curve_points), fill(fill), rotation(rotation) {}
 };
 
 #endif //SHAPES_H

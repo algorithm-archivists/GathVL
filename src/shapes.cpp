@@ -49,10 +49,12 @@ void arc::draw(cairo_t *ctx) const {
 }
 
 void line::draw(cairo_t * ctx) const {
+    cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
     cairo_move_to(ctx, start.x, start.y);
     cairo_line_to(ctx, end.x, end.y);
     cairo_stroke(ctx);
+    cairo_restore(ctx);
 }
 
 void rectangle::draw(cairo_t *ctx) const {
@@ -112,6 +114,7 @@ void arrow::draw(cairo_t *ctx) const {
 }
 
 void curve::draw(cairo_t *ctx) const {
+    cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
     cairo_move_to(ctx, points[0].x, points[0].y);
 
@@ -121,6 +124,7 @@ void curve::draw(cairo_t *ctx) const {
     }
 
     cairo_stroke(ctx);
+    cario_restore(ctx);
 }
 
 void polygon::draw(cairo_t *ctx) const {
