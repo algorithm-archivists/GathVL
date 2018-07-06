@@ -124,7 +124,7 @@ void curve::draw(cairo_t *ctx) const {
     }
 
     cairo_stroke(ctx);
-    cario_restore(ctx);
+    cairo_restore(ctx);
 }
 
 void polygon::draw(cairo_t *ctx) const {
