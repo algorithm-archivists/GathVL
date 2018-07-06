@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include <cairo.h>
@@ -86,6 +87,27 @@ struct rectangle : shape {
     rectangle(color rec_clr, vec loc, vec sz, double rotate, bool rec_fill) :
         shape(rec_clr), location(loc), size(sz), rotation(rotate),
         fill(rec_fill) {}
+};
+
+struct text : shape {
+    vec location;
+    double size;
+    double rotation;
+    std::string str;
+    std::string font;
+
+    void draw(cairo_t *) const override;
+
+    text(vec loc, double font_size, std::string string) :
+        str(string), location(loc), size(font_size), rotation(0.0) {}
+
+    text(vec loc, double font_size, std::string string, std::string str_font) :
+        str(string), location(loc), size(font_size), rotation(0.0),
+        font(str_font) {}
+
+    text(color clr, vec loc, double font_size, std::string string,
+         std::string str_font) : shape(clr), str(string), location(loc),
+        size(font_size), rotation(0.0), font(str_font) {}
 };
 
 #endif //SHAPES_H

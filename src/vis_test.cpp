@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iomanip>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "../include/camera.h"
@@ -43,12 +44,16 @@ int main() {
     b_node->add_animator<vec_animator>(0, 49, &b_node->size, vec{0.0, 0.0},
                                        vec{50.0, 50.0});
 
+    auto text1 = std::make_shared<text>(vec{20, 300}, 50.0,
+                                       std::string("GathVL Test"));
+
     s.add_layer();
     s.add_shape(line_a, 1);
     s.add_shape(line_b, 1);
     s.add_shape(a_node, 0);
     s.add_shape(b_node, 0);
     s.add_shape(root, 0);
+    s.add_shape(text1, 0);
 
     cam.add_encoder<video_encoder>("/tmp/video.mp4", cam.size, 25);
 

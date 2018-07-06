@@ -23,8 +23,9 @@ void ellipse::draw(cairo_t *ctx) const {
         cairo_arc(ctx, location.x, location.y, size.x, angles.x, angles.y);
     }
 
-    if (fill)
+    if (fill) {
         cairo_fill(ctx);
+    }
 
     cairo_stroke(ctx);
     cairo_rotate(ctx, -1.0 * rotation);
@@ -61,8 +62,27 @@ void rectangle::draw(cairo_t *ctx) const {
 
     cairo_rectangle(ctx, location.x, location.y, size.x, size.y);
 
-    if (fill)
+    if (fill) {
         cairo_fill(ctx);
+    }
+
+    cairo_stroke(ctx);
+    cairo_rotate(ctx, -1.0 * rotation);
+}
+
+void text::draw(cairo_t *ctx) const {
+    cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
+    cairo_rotate(ctx, rotation);
+
+    if (!font.empty()) {
+        cairo_select_font_face(ctx, font.c_str(), CAIRO_FONT_SLANT_NORMAL,
+                               CAIRO_FONT_WEIGHT_NORMAL);
+    }
+
+    cairo_set_font_size(ctx, size);
+
+    cairo_move_to(ctx, location.x, location.y);
+    cairo_show_text(ctx, str.c_str());
 
     cairo_stroke(ctx);
     cairo_rotate(ctx, -1.0 * rotation);
