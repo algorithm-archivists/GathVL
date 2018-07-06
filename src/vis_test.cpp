@@ -53,6 +53,21 @@ int main() {
 
     auto vector1 = std::make_shared<arrow>(vec{250, 250}, 100, M_PI / 2);
 
+    std::vector<vec> points;
+
+    vec origin = {300, 400};
+
+    for (int i = 0; i < 50; ++i) {
+        points.emplace_back(origin.x + i,
+                            origin.y - (i * i) / 50);
+    }
+
+    for (const auto& p : points) {
+        std::cout << "(" << p.x << ", " << p.y << ")" << std::endl;
+    }
+
+    auto curve1 = std::make_shared<curve>(points);
+
     s.add_layer();
     s.add_shape(line_a, 1);
     s.add_shape(line_b, 1);
@@ -62,6 +77,7 @@ int main() {
     s.add_shape(text1, 0);
     s.add_shape(rec, 0);
     s.add_shape(vector1, 0);
+    s.add_shape(curve1, 0);
 
     cam.add_encoder<video_encoder>("/tmp/video.mp4", cam.size, 25);
 

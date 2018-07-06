@@ -54,11 +54,11 @@ struct arc : shape {
 
     void draw(cairo_t *) const override;
 
-    arc(vec loc, vec sz, vec arc_angles) :  location(loc), size(sz),
-        angles(arc_angles) {}
-
-    arc(color arc_clr, vec loc, vec sz, vec arc_angles) : shape(arc_clr),
+    arc(vec loc, vec sz, vec arc_angles) :
         location(loc), size(sz), angles(arc_angles) {}
+
+    arc(color arc_clr, vec loc, vec sz, vec arc_angles) :
+        shape(arc_clr), location(loc), size(sz), angles(arc_angles) {}
 };
 
 struct line : shape {
@@ -98,11 +98,11 @@ struct text : shape {
 
     void draw(cairo_t *) const override;
 
-    text(vec loc, double font_size, std::string string) :
-        str(string), location(loc), size(font_size), rotation(0.0) {}
+    text(vec loc, double sz, std::string string) :
+        str(string), location(loc), size(sz), rotation(0.0) {}
 
-    text(vec loc, double font_size, std::string string, std::string str_font) :
-        str(string), location(loc), size(font_size), rotation(0.0),
+    text(vec loc, double sz, std::string string, std::string str_font) :
+        str(string), location(loc), size(sz), rotation(0.0),
         font(str_font) {}
 
     text(color clr, vec loc, double font_size, std::string string,
@@ -122,6 +122,18 @@ struct arrow : shape {
 
     arrow(color clr, vec loc, double len, double rotate) :
         shape(clr), location(loc), length(len), rotation(rotate) {}
+};
+
+struct curve : shape {
+    std::vector<vec> points;
+
+    void draw(cairo_t *) const override;
+
+    curve(std::vector<vec> curve_points) :
+        points(curve_points) {}
+
+    curve(color clr, std::vector<vec> curve_points) :
+        shape(clr), points(curve_points) {}
 };
 
 #endif //SHAPES_H
