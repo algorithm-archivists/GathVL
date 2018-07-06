@@ -123,3 +123,24 @@ void curve::draw(cairo_t *ctx) const {
 
     cairo_stroke(ctx);
 }
+
+void polygon::draw(cairo_t *ctx) const {
+    cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
+    cairo_translate(ctx, points[0].x, points[0].y);
+    cairo_rotate(ctx, rotation);
+
+    for (const auto point : points) {
+        cairo_line_to(ctx, point.x - points[0].x, point.y - points[0].y);
+        cairo_move_to(ctx, point.x - points[0].x, point.y - points[0].y);
+    }
+
+    cairo_line_to(ctx, 0, 0);
+
+    if (fill) {
+        cairo_fill(ctx);
+    }
+
+    cairo_stroke(ctx);
+    cairo_rotate(ctx, -1.0 * rotation);
+    cairo_translate(ctx, -1.0 * points[0].x, -1.0 * points[0].y);
+}

@@ -62,11 +62,17 @@ int main() {
                             origin.y - (i * i) / 50);
     }
 
-    for (const auto& p : points) {
-        std::cout << "(" << p.x << ", " << p.y << ")" << std::endl;
-    }
-
     auto curve1 = std::make_shared<curve>(points);
+
+    std::vector<vec> hex;
+    hex.emplace_back(0, 25);
+    hex.emplace_back(12.5, 46.7);
+    hex.emplace_back(37.5, 46.7);
+    hex.emplace_back(50, 25);
+    hex.emplace_back(37.5, 3.4);
+    hex.emplace_back(12.5, 3.4);
+
+    auto poly = std::make_shared<polygon>(hex, false);
 
     s.add_layer();
     s.add_shape(line_a, 1);
@@ -78,6 +84,7 @@ int main() {
     s.add_shape(rec, 0);
     s.add_shape(vector1, 0);
     s.add_shape(curve1, 0);
+    s.add_shape(poly, 0);
 
     cam.add_encoder<video_encoder>("/tmp/video.mp4", cam.size, 25);
 

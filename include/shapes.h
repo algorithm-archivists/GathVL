@@ -136,4 +136,22 @@ struct curve : shape {
         shape(clr), points(curve_points) {}
 };
 
+struct polygon : shape {
+    std::vector<vec> points;
+    double rotation;
+    bool fill;
+
+    void draw(cairo_t *) const override;
+
+    polygon(std::vector<vec> curve_points, bool fill_polygon) :
+        points(curve_points), fill(fill_polygon), rotation(0) {}
+
+    polygon(std::vector<vec> curve_points, bool fill_polygon, double rotate) :
+        points(curve_points), fill(fill_polygon), rotation(rotate) {}
+
+    polygon(color clr, std::vector<vec> curve_points, bool fill_polygon,
+            double rotate) : shape(clr), points(curve_points),
+        fill(fill_polygon), rotation(rotate) {}
+};
+
 #endif //SHAPES_H
