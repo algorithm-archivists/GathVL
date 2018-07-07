@@ -67,6 +67,6 @@ void scene::clear_layer(int position) {
 }
 
 void scene::clear() {
-    clear_layers();
     layers.clear();
+    layers.emplace_back();
 }
