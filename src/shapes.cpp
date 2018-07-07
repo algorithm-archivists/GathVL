@@ -116,7 +116,10 @@ void arrow::draw(cairo_t *ctx) const {
 void curve::draw(cairo_t *ctx) const {
     cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
-    cairo_move_to(ctx, points[0].x, points[0].y);
+
+    if (!points.empty()) {
+        cairo_move_to(ctx, points[0].x, points[0].y);
+    }
 
     for (const auto& point : points) {
         cairo_line_to(ctx, point.x, point.y);

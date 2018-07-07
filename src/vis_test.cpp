@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include <memory>
 #include <vector>
 
@@ -31,8 +32,6 @@ void first_scene(camera& cam, scene& world) {
     world.add_shape(ball, 1);
     world.add_shape(rec, 1);
 
-    std::cout << title.use_count() << std::endl;
-
     for (int i = 0; i < 200; ++i) {
         world.update(i);
         cam.encode_frame(world);
@@ -42,10 +41,31 @@ void first_scene(camera& cam, scene& world) {
 }
 
 void second_scene(camera& cam, scene& world) {
-    auto title = std::make_shared<text>(vec{0, 600}, 50,
+    auto title = std::make_shared<text>(vec{0, 720}, 50,
                                         std::string("GathVL Test"));
 
+    auto y_axis = std::make_shared<arrow>(vec{50, 10}, 600, -1.0 * M_PI / 2);
+    auto x_axis = std::make_shared<arrow>(vec{650, 610}, 600, 0);
+
+    std::vector<vec> exp_points;
+
+    vec origin = {50, 610};
+
+    for (int i = 0; i < 100; ++i) {
+        exp_points.emplace_back(origin.x + i * 6,
+                                origin.y - std::exp(i * 0.06) / 0.68);
+        std::cout << exp_points[i].x << "  " << exp_points[i].y << std::endl;
+    }
+
+    auto exp_curve = std::make_shared<curve>(std::vector<vec>());
+
+    exp_curve->add_animator<vec_array_animator>(0, 49, 0, exp_points,
+                                                &exp_curve->points);
+
     world.add_shape(title, 0);
+    world.add_shape(y_axis, 0);
+    world.add_shape(x_axis, 0);
+    world.add_shape(exp_curve, 0);
 
     for (int i = 0; i < 50; ++i) {
         world.update(i);
