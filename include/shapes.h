@@ -105,7 +105,7 @@ struct text : shape {
          const std::string& font) :
         str(str), location(location), size(size), rotation(0.0), font(font) {}
 
-    text(color clr, vec location, double size, cosnt std::string& str,
+    text(color clr, vec location, double size, const std::string& str,
          double rotation) :
         shape(clr), str(str), location(location), size(size),
         rotation(rotation) {}
