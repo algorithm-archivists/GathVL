@@ -15,10 +15,12 @@ void vec_animator::update(const int frame) {
 
 void vec_array_animator::update(const int frame) {
     if (!array.empty() && frame >= start_frame && frame < end_frame) {
-        int count = (frame - start_frame) / (end_frame - start_frame);
-        std::cout << ptr->size() << std::endl;
-        for (; start_point <= start_point + count; ++start_point) {
-            ptr->emplace_back(array[start_point].x, array[start_point].y);
+        int index = ptr->size();
+        int new_size = ptr->size() + (array.size() - start_point) /
+            (end_frame - start_frame);
+        while (ptr->size() < new_size) {
+            ptr->emplace_back(array[index].x, array[index].y);
+            index++;
         }
     }
 }

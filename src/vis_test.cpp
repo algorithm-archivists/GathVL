@@ -54,12 +54,12 @@ void second_scene(camera& cam, scene& world) {
     for (int i = 0; i < 100; ++i) {
         exp_points.emplace_back(origin.x + i * 6,
                                 origin.y - std::exp(i * 0.06) / 0.68);
-        std::cout << exp_points[i].x << "  " << exp_points[i].y << std::endl;
     }
 
-    auto exp_curve = std::make_shared<curve>(std::vector<vec>());
+    auto exp_curve =
+        std::make_shared<curve>(std::vector<vec>());
 
-    exp_curve->add_animator<vec_array_animator>(0, 49, 0, exp_points,
+    exp_curve->add_animator<vec_array_animator>(0, 50, 0, exp_points,
                                                 &exp_curve->points);
 
     world.add_shape(title, 0);
@@ -67,7 +67,7 @@ void second_scene(camera& cam, scene& world) {
     world.add_shape(x_axis, 0);
     world.add_shape(exp_curve, 0);
 
-    for (int i = 0; i < 50; ++i) {
+    for (int i = 0; i < 51; ++i) {
         world.update(i);
         cam.encode_frame(world);
     }
