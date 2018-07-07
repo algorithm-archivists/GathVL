@@ -31,6 +31,11 @@ struct scene {
     void add_layer_at(int position);
     void add_layers_from(int position, int num_layers);
 
+    void clear_layers();
+    void clear_layer(int position);
+
+    void clear();
+
     scene() : scene({600, 400}, {0.0, 0.0, 0.0, 1.0}) { }
     scene(color bg_color) : scene({600, 400}, bg_color) { }
     scene(vec scene_size) : scene(scene_size, {0.0, 0.0, 0.0, 1.0}) {}
