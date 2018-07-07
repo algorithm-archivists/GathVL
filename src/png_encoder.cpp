@@ -8,7 +8,7 @@ void png_encoder::encode(cairo_surface_t *image) {
     std::stringstream ss;
     ss << std::setw(5) << std::setfill('0') << count;
     png_url = url + ss.str() + ".png";
-    cairo_surface_write_to_png(image, url.c_str());
+    cairo_surface_write_to_png(image, png_url.c_str());
     count++;
 }
 
