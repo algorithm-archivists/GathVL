@@ -44,23 +44,23 @@ void second_scene(camera& cam, scene& world) {
     auto title = std::make_shared<text>(vec{0, 720}, 50,
                                         std::string("GathVL Test"));
 
-    auto y_axis = std::make_shared<arrow>(vec{50, 10}, 600, -1.0 * M_PI / 2);
-    auto x_axis = std::make_shared<arrow>(vec{650, 610}, 600, 0);
+    auto y_axis = std::make_shared<line>(vec{50, 10}, vec{50, 610});
+    auto x_axis = std::make_shared<line>(vec{1250, 610}, vec{50, 610});
 
     std::vector<vec> exp_points;
 
     vec origin = {50, 610};
 
     for (int i = 0; i < 100; ++i) {
-        exp_points.emplace_back(origin.x + i * 6,
-                                origin.y - std::exp(i * 0.06) / 0.68);
+        exp_points.emplace_back(origin.x + i * 12,
+                                origin.y - 10 - std::exp(i * 0.06) / 0.68);
     }
 
     auto exp_curve =
         std::make_shared<curve>(std::vector<vec>());
 
-    exp_curve->add_animator<vec_array_animator>(0, 50, 0, exp_points,
-                                                &exp_curve->points);
+    exp_curve->add_animator<vector_animator<vec>>(0, 50, 0, exp_points,
+                                                  &exp_curve->points);
 
     world.add_shape(title, 0);
     world.add_shape(y_axis, 0);
