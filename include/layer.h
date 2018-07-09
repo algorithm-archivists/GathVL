@@ -15,6 +15,9 @@ struct layer {
 
     void draw(cairo_t *ctx) const;
     void update(int frame);
+
+    void remove_shape(int position);
+    void clear();
 };
 
 #endif //LAYER_h

@@ -11,3 +11,13 @@ void layer::update(int frame) {
         shp->update(frame);
     }
 }
+
+void layer::remove_shape(int position) {
+    auto iter = shapes.begin();
+    std::advance(iter, position);
+    shapes.erase(iter);
+}
+
+void layer::clear() {
+    shapes.clear();
+}

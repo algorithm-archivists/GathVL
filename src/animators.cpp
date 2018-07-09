@@ -6,5 +6,7 @@ void vec_animator::update(const int frame) {
                    (end_frame - start_frame);
     } else if (vec_ptr && frame >= end_frame) {
         *vec_ptr = end_vec;
+    } else {
+        *vec_ptr = start_vec;
     }
 }

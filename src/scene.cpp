@@ -55,3 +55,18 @@ void scene::add_layers_from(int position, int num_layers) {
     std::advance(iter, position);
     layers.insert(iter, num_layers, layer());
 }
+
+void scene::clear_layers() {
+    for (auto& l : layers) {
+        l.clear();
+    }
+}
+
+void scene::clear_layer(int position) {
+    layers[position].clear();
+}
+
+void scene::clear() {
+    layers.clear();
+    layers.emplace_back();
+}
