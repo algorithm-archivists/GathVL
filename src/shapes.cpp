@@ -95,6 +95,7 @@ void text::draw(cairo_t *ctx) const {
 
 void arrow::draw(cairo_t *ctx) const {
     cairo_save(ctx);
+<<<<<<< HEAD
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
     cairo_translate(ctx, location.x, location.y);
     cairo_rotate(ctx, rotation);
@@ -141,6 +142,51 @@ void polygon::draw(cairo_t *ctx) const {
         cairo_move_to(ctx, point.x - points[0].x, point.y - points[0].y);
     }
 
+=======
+    cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
+    cairo_translate(ctx, location.x, location.y);
+    cairo_rotate(ctx, rotation);
+
+    cairo_move_to(ctx, 0, 0);
+    cairo_line_to(ctx, -1.0 * length, 0);
+    cairo_rotate(ctx, M_PI / 4);
+    cairo_move_to(ctx, 0, 0);
+    cairo_line_to(ctx, length * -0.2, 0);
+    cairo_rotate(ctx, - M_PI / 2);
+    cairo_move_to(ctx, 0, 0);
+    cairo_line_to(ctx, length * -0.2, 0);
+    cairo_rotate(ctx, M_PI / 4);
+
+    cairo_stroke(ctx);
+    cairo_restore(ctx);
+}
+
+void curve::draw(cairo_t *ctx) const {
+    cairo_save(ctx);
+    cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
+    cairo_move_to(ctx, points[0].x, points[0].y);
+
+    for (const auto& point : points) {
+        cairo_line_to(ctx, point.x, point.y);
+        cairo_move_to(ctx, point.x, point.y);
+    }
+
+    cairo_stroke(ctx);
+    cairo_restore(ctx);
+}
+
+void polygon::draw(cairo_t *ctx) const {
+    cairo_save(ctx);
+    cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
+    cairo_translate(ctx, points[0].x, points[0].y);
+    cairo_rotate(ctx, rotation);
+
+    for (const auto& point : points) {
+        cairo_line_to(ctx, point.x - points[0].x, point.y - points[0].y);
+        cairo_move_to(ctx, point.x - points[0].x, point.y - points[0].y);
+    }
+
+>>>>>>> ff70994f4868c1058ec63b70f32cdedbaaf85bde
     cairo_line_to(ctx, 0, 0);
 
     if (fill) {
