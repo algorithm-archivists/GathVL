@@ -11,8 +11,8 @@ static void add_stream(output_stream *ostream, AVFormatContext *format_ctx,
     *codec = avcodec_find_encoder(codec_id);
 
     if (!(*codec)) {
-        std::cout << "Could not find encoder for " << avcodec_get_name(codec_id)
-            << std::endl;
+        std::cout << "Could not find encoder for "
+            << avcodec_get_name(codec_id) << std::endl;
         std::exit(1);
     }
 
@@ -77,7 +77,8 @@ static void open_video(AVFormatContext *format_ctx, AVCodec *codec,
         std::exit(1);
     }
 
-    ret = avcodec_parameters_from_context(ostream->stream->codecpar, codec_ctx);
+    ret = avcodec_parameters_from_context(ostream->stream->codecpar,
+                                          codec_ctx);
     if (ret < 0) {
         std::cout << "Could not copy the stream parameters" << std::endl;
         std::exit(1);
@@ -137,18 +138,6 @@ void video_encoder::encode(cairo_surface_t *image) {
 
     frame = ostream.frame;
     if (c->pix_fmt != AV_PIX_FMT_BGRA) {
-        if (!ostream.sws_ctx) {
-            ostream.sws_ctx = sws_getContext(c->width, c->height,
-                                             AV_PIX_FMT_BGRA, c->width,
-                                             c->height, c->pix_fmt, SWS_BICUBIC,
-                                             NULL, NULL, NULL);
-            if (!ostream.sws_ctx) {
-                std::cout << "Could not initialize the conversion context"
-                    << std::endl;
-                std::exit(1);
-            }
-        }
-
         sws_scale(ostream.sws_ctx, data, stride, 0, c->height, frame->data,
                   frame->linesize);
     } else {
@@ -161,8 +150,8 @@ void video_encoder::encode(cairo_surface_t *image) {
     write_frame(format_ctx, &ostream, ostream.frame);
 }
 
-video_encoder::video_encoder(std::string file_url, vec vid_size, int frame_rate)
-    : encoder(file_url), size(vid_size), frames_per_sec(frame_rate) {
+video_encoder::video_encoder(std::string url, vec vid_size, int frame_rate)
+    : encoder(url), size(vid_size), frames_per_sec(frame_rate) {
     AVOutputFormat *format;
     ostream = {0};
     AVCodec *codec;
@@ -227,9 +216,26 @@ video_encoder::video_encoder(std::string file_url, vec vid_size, int frame_rate)
         std::cout << "Error occurred when opening output file." << std::endl;
         std::exit(1);
     }
+
+    if (ostream.codec_ctx->pix_fmt != AV_PIX_FMT_BGRA) {
+        ostream.sws_ctx = sws_getContext(ostream.codec_ctx->width,
+                                         ostream.codec_ctx->height,
+                                         AV_PIX_FMT_BGRA,
+                                         ostream.codec_ctx->width,
+                                         ostream.codec_ctx->height,
+                                         ostream.codec_ctx->pix_fmt,
+                                         SWS_BICUBIC, NULL, NULL, NULL);
+        if (!ostream.sws_ctx) {
+            std::cout << "Could not initialize the conversion context"
+                << std::endl;
+            std::exit(1);
+        }
+    }
 }
 
 video_encoder::~video_encoder() {
+    write_frame(format_ctx, &ostream, NULL);
+
     av_write_trailer(format_ctx);
 
     avcodec_free_context(&ostream.codec_ctx);
