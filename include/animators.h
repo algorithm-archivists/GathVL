@@ -33,7 +33,7 @@ struct vector_animator : animator {
     int start_point;
 
     void update(const int frame) override {
-        if (!data.empty() && frame >= start_frame && frame <= end_frame) {
+        if (!data.empty() && frame >= start_frame && frame < end_frame) {
             int index = vector_ptr->size();
             int new_size = vector_ptr->size() + (data.size() - start_point) /
                 (end_frame - start_frame);

@@ -1,15 +1,13 @@
 #include <iostream>
 #include <cmath>
 #include <memory>
-#include <string>
 #include <vector>
 
 #include "../include/camera.h"
 #include "../include/scene.h"
 
 void first_scene(camera& cam, scene& world) {
-    auto title = std::make_shared<text>(vec{0, 100}, 50,
-                                        std::string("GathVL Test"));
+    auto title = std::make_shared<text>(vec{0, 100}, 50, "GathVL Test");
 
     auto ball = std::make_shared<ellipse>(vec{640, 360}, vec{0, 0}, 0, true);
 
@@ -42,8 +40,7 @@ void first_scene(camera& cam, scene& world) {
 }
 
 void second_scene(camera& cam, scene& world) {
-    auto title = std::make_shared<text>(vec{0, 720}, 50,
-                                        std::string("GathVL Test"));
+    auto title = std::make_shared<text>(vec{0, 720}, 50, "GathVL Test");
 
     auto y_axis = std::make_shared<line>(vec{50, 10}, vec{50, 610});
     auto x_axis = std::make_shared<line>(vec{1250, 610}, vec{50, 610});
