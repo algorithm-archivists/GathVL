@@ -17,7 +17,7 @@ void first_scene(camera& cam, scene& world) {
     ball->add_animator<vec_animator>(50, 99, &ball->location, vec{640, 360},
                                      vec{-50, -50});
 
-    auto rec = std::make_shared<rectangle>(vec{-50, -50}, vec{50, 50}, 0,
+    auto rec = std::make_shared<rectangle>(vec{-50, -50}, vec{50, 50}, M_PI / 4,
                                            true);
 
     rec->add_animator<vec_animator>(100, 149, &rec->location, vec{-50, -50},
@@ -50,12 +50,11 @@ void second_scene(camera& cam, scene& world) {
     vec origin = {50, 610};
 
     for (int i = 0; i < 100; ++i) {
-        exp_points.emplace_back(origin.x + i * 12,
-                                origin.y - 10 - std::exp(i * 0.06) / 0.68);
+        exp_points.emplace_back(i * 12, std::exp(i * 0.06) / 0.68);
     }
 
     auto exp_curve =
-        std::make_shared<curve>(std::vector<vec>());
+        std::make_shared<curve>(std::vector<vec>(), origin);
 
     exp_curve->add_animator<vector_animator<vec>>(0, 50, 0, exp_points,
                                                   &exp_curve->points);

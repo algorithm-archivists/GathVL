@@ -142,11 +142,11 @@ struct curve : shape {
 
     void draw(cairo_t *) const override;
 
-    curve(const std::vector<vec>& curve_points, vec origin) :
-        points(curve_points), origin(origin) {}
+    curve(const std::vector<vec>& points, vec origin) :
+        points(points), origin(origin) {}
 
-    curve(color clr, const std::vector<vec>& curve_points, vec origin) :
-        shape(clr), points(curve_points), origin(origin) {}
+    curve(color clr, const std::vector<vec>& points, vec origin) :
+        shape(clr), points(points), origin(origin) {}
 };
 
 struct polygon : shape {
@@ -157,16 +157,16 @@ struct polygon : shape {
 
     void draw(cairo_t *) const override;
 
-    polygon(const std::vector<vec>& curve_points, bool fill) :
-        points(curve_points), fill(fill), rotation(0), center({0.0, 0.0}) {}
+    polygon(const std::vector<vec>& points, bool fill) :
+        points(points), fill(fill), rotation(0), center({0.0, 0.0}) {}
 
-    polygon(const std::vector<vec>& curve_points, bool fill, double rotation,
+    polygon(const std::vector<vec>& points, bool fill, double rotation,
             vec center) :
-        points(curve_points), fill(fill), rotation(rotation), center(center) {}
+        points(points), fill(fill), rotation(rotation), center(center) {}
 
-    polygon(color clr, const std::vector<vec>& curve_points, bool fill,
+    polygon(color clr, const std::vector<vec>& points, bool fill,
             double rotation, vec center) :
-        shape(clr), points(curve_points), fill(fill), rotation(rotation),
+        shape(clr), points(points), fill(fill), rotation(rotation),
         center(center) {}
 };
 
