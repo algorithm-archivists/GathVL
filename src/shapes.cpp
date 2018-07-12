@@ -10,16 +10,17 @@ void shape::update(const int frame) {
 void ellipse::draw(cairo_t *ctx) const {
     cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
+    cairo_translate(ctx, location.x, location.y);
     cairo_rotate(ctx, rotation);
 
-    if (size.x < size.y) {
+    if (size.x < size.y && (size.x != 0 || size.y != 0)) {
         cairo_scale(ctx, size.x / size.y, 1.0);
-        cairo_arc(ctx, location.x, location.y, size.y, angles.x, angles.y);
-    } else if (size.x > size.y) {
+        cairo_arc(ctx, 0.0, 0.0, size.y, angles.x, angles.y);
+    } else if (size.x > size.y && (size.x != 0 || size.y != 0)) {
         cairo_scale(ctx, 1.0, size.y / size.x);
-        cairo_arc(ctx, location.x, location.y, size.x, angles.x, angles.y);
+        cairo_arc(ctx, 0.0, 0.0, size.x, angles.x, angles.y);
     } else if (size.x == size.y && size.x != 0) {
-        cairo_arc(ctx, location.x, location.y, size.x, angles.x, angles.y);
+        cairo_arc(ctx, 0.0, 0.0, size.x, angles.x, angles.y);
     }
 
     if (fill) {
@@ -34,10 +35,10 @@ void arc::draw(cairo_t *ctx) const {
     cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
 
-    if (size.x < size.y) {
+    if (size.x < size.y && (size.x != 0 || size.y != 0)) {
         cairo_scale(ctx, size.x / size.y, 1.0);
         cairo_arc(ctx, location.x, location.y, size.y, angles.x, angles.y);
-    } else if (size.x > size.y) {
+    } else if (size.x > size.y && (size.x != 0 || size.y != 0)) {
         cairo_scale(ctx, 1.0, size.y / size.x);
         cairo_arc(ctx, location.x, location.y, size.x, angles.x, angles.y);
     } else if (size.x == size.y && size.x != 0) {
@@ -51,8 +52,10 @@ void arc::draw(cairo_t *ctx) const {
 void line::draw(cairo_t * ctx) const {
     cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
+
     cairo_move_to(ctx, start.x, start.y);
     cairo_line_to(ctx, end.x, end.y);
+
     cairo_stroke(ctx);
     cairo_restore(ctx);
 }
@@ -99,7 +102,6 @@ void arrow::draw(cairo_t *ctx) const {
     cairo_translate(ctx, location.x, location.y);
     cairo_rotate(ctx, rotation);
 
-    cairo_move_to(ctx, 0, 0);
     cairo_line_to(ctx, -1.0 * length, 0);
     cairo_rotate(ctx, M_PI / 4);
     cairo_move_to(ctx, 0, 0);
@@ -116,14 +118,15 @@ void arrow::draw(cairo_t *ctx) const {
 void curve::draw(cairo_t *ctx) const {
     cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
+    cairo_translate(ctx, origin.x, origin.y);
 
     if (!points.empty()) {
-        cairo_move_to(ctx, points[0].x, points[0].y);
+        cairo_move_to(ctx, points[0].x, -1.0 * points[0].y);
     }
 
     for (const auto& point : points) {
-        cairo_line_to(ctx, point.x, point.y);
-        cairo_move_to(ctx, point.x, point.y);
+        cairo_line_to(ctx, point.x, -1.0 * point.y);
+        cairo_move_to(ctx, point.x, -1.0 * point.y);
     }
 
     cairo_stroke(ctx);
@@ -133,15 +136,18 @@ void curve::draw(cairo_t *ctx) const {
 void polygon::draw(cairo_t *ctx) const {
     cairo_save(ctx);
     cairo_set_source_rgba(ctx, clr.r, clr.g, clr.b, clr.a);
-    cairo_translate(ctx, points[0].x, points[0].y);
+    cairo_translate(ctx, center.x, center.y);
     cairo_rotate(ctx, rotation);
 
-    for (const auto& point : points) {
-        cairo_line_to(ctx, point.x - points[0].x, point.y - points[0].y);
-        cairo_move_to(ctx, point.x - points[0].x, point.y - points[0].y);
+    if (!points.empty()) {
+        cairo_move_to(ctx, points.back().x - center.x,
+                      points.back().y - center.y);
     }
 
-    cairo_line_to(ctx, 0, 0);
+    for (const auto& point : points) {
+        cairo_line_to(ctx, point.x - center.x, point.y - center.y);
+        cairo_move_to(ctx, point.x - center.x, point.y - center.y);
+    }
 
     if (fill) {
         cairo_fill(ctx);
