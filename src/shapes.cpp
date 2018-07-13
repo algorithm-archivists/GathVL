@@ -102,14 +102,14 @@ void arrow::draw(cairo_t *ctx) const {
     cairo_translate(ctx, location.x, location.y);
     cairo_rotate(ctx, rotation);
 
-    cairo_line_to(ctx, -1.0 * length, 0);
-    cairo_rotate(ctx, M_PI / 4);
     cairo_move_to(ctx, 0, 0);
-    cairo_line_to(ctx, length * -0.2, 0);
-    cairo_rotate(ctx, - M_PI / 2);
+    cairo_line_to(ctx, length, 0);
+    cairo_rotate(ctx, -1.0 * M_PI / 4);
     cairo_move_to(ctx, 0, 0);
-    cairo_line_to(ctx, length * -0.2, 0);
-    cairo_rotate(ctx, M_PI / 4);
+    cairo_line_to(ctx, 0.25 * length, 0);
+    cairo_move_to(ctx, 0, 0);
+    cairo_rotate(ctx, M_PI / 2);
+    cairo_line_to(ctx, 0.25 * length, 0);
 
     cairo_stroke(ctx);
     cairo_restore(ctx);
