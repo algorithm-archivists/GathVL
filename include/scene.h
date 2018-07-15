@@ -6,9 +6,9 @@
 
 #include <cairo.h>
 
-#include "types/vec.h"
-#include "types/color.h"
 #include "layer.h"
+#include "types/color.h"
+#include "types/vec.h"
 
 struct shape;
 struct animator;
@@ -24,7 +24,7 @@ struct scene {
     void draw();
     void update(int frame);
 
-    void add_shape(std::shared_ptr<shape> shp, int layer_pos);
+    void add_object(std::shared_ptr<object> obj, int layer_pos);
 
     void add_layer();
     void add_layers(int num_layers);

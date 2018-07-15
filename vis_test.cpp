@@ -27,9 +27,9 @@ void first_scene(camera& cam, scene& world) {
                                     vec{0, 0});
 
     world.add_layer();
-    world.add_shape(title, 0);
-    world.add_shape(ball, 1);
-    world.add_shape(rec, 1);
+    world.add_object(title, 0);
+    world.add_object(ball, 1);
+    world.add_object(rec, 1);
 
     for (int i = 0; i < 200; ++i) {
         world.update(i);
@@ -59,10 +59,10 @@ void second_scene(camera& cam, scene& world) {
     exp_curve->add_animator<vector_animator<vec>>(0, 50, 0, exp_points,
                                                   &exp_curve->points);
 
-    world.add_shape(title, 0);
-    world.add_shape(y_axis, 0);
-    world.add_shape(x_axis, 0);
-    world.add_shape(exp_curve, 0);
+    world.add_object(title, 0);
+    world.add_object(y_axis, 0);
+    world.add_object(x_axis, 0);
+    world.add_object(exp_curve, 0);
 
     for (int i = 0; i < 51; ++i) {
         world.update(i);

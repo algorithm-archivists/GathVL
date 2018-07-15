@@ -32,8 +32,8 @@ void scene::update(const int frame) {
     }
 }
 
-void scene::add_shape(std::shared_ptr<shape> shp, int layer_pos) {
-    layers[layer_pos].shapes.push_back(shp);
+void scene::add_object(std::shared_ptr<object> obj, int layer_pos) {
+    layers[layer_pos].objects.push_back(obj);
 }
 
 void scene::add_layer() {
