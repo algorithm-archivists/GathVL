@@ -7,10 +7,10 @@
 
 #include <cairo.h>
 
-#include "encoder.h"
-#include "png_encoder.h"
-#include "video_encoder.h"
-#include "vec.h"
+#include "encoders/encoder.h"
+#include "encoders/png_encoder.h"
+#include "encoders/video_encoder.h"
+#include "types/vec.h"
 
 struct scene;
 
@@ -22,9 +22,10 @@ struct camera {
     void move_by(vec displace);
     void move_to(vec position);
 
-    template <typename A, typename... Arg>
-    void add_encoder(Arg&&... args) {
-        encoders.emplace_back(std::make_unique<A>(std::forward<Arg>(args)...));
+    template <typename A, typename... Args>
+    void add_encoder(Args&&... args) {
+        using namespace std;
+        encoders.emplace_back(make_unique<A>(forward<Args>(args)...));
     }
 
     void encode_frame(scene &s);

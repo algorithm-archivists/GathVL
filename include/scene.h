@@ -6,8 +6,8 @@
 
 #include <cairo.h>
 
-#include "vec.h"
-#include "color.h"
+#include "types/vec.h"
+#include "types/color.h"
 #include "layer.h"
 
 struct shape;

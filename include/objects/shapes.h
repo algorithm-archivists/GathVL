@@ -8,9 +8,9 @@
 
 #include <cairo.h>
 
-#include "vec.h"
-#include "color.h"
-#include "animators.h"
+#include "../animators/animator.h"
+#include "../types/color.h"
+#include "../types/vec.h"
 
 struct shape {
     color clr;

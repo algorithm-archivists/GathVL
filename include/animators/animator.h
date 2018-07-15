@@ -3,8 +3,8 @@
 
 #include <vector>
 
-#include "vec.h"
-#include "color.h"
+#include "../types/vec.h"
+#include "../types/color.h"
 
 struct animator {
     int start_frame, end_frame;

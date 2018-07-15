@@ -1,4 +1,4 @@
-#include "../include/png_encoder.h"
+#include "../../include/encoders/png_encoder.h"
 
 #include <sstream>
 #include <iomanip>

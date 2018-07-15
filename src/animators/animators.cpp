@@ -1,4 +1,4 @@
-#include "../include/animators.h"
+#include "../../include/animators/animators.h"
 
 void vec_animator::update(const int frame) {
     if (vec_ptr && frame >= start_frame && frame < end_frame) {

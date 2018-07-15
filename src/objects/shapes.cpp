@@ -1,5 +1,4 @@
-#include "../include/shapes.h"
-#include "../include/scene.h"
+#include "../../include/objects/shapes.h"
 
 void shape::update(const int frame) {
     for (auto& anim : animators) {

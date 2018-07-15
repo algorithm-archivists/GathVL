@@ -6,9 +6,9 @@
 
 #include <cairo.h>
 
-#include "vec.h"
-#include "color.h"
-#include "shapes.h"
+#include "types/vec.h"
+#include "types/color.h"
+#include "objects/shapes.h"
 
 struct layer {
     std::vector<std::shared_ptr<shape>> shapes;
@@ -20,4 +20,4 @@ struct layer {
     void clear();
 };
 
-#endif //LAYER_h
+#endif //LAYER_H

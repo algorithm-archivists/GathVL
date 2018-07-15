@@ -3,8 +3,8 @@
 #include <memory>
 #include <vector>
 
-#include "../include/camera.h"
-#include "../include/scene.h"
+#include "include/camera.h"
+#include "include/scene.h"
 
 void first_scene(camera& cam, scene& world) {
     auto title = std::make_shared<text>(vec{0, 100}, 50, "GathVL Test");
