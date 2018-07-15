@@ -6,7 +6,10 @@ CXXFLAGS = -std=c++14 -g -O2 #-Wall -march=native -fopenmp -fno-omit-frame-point
 
 LIBFLAGS = `pkg-config --cflags --libs cairo libavformat libavcodec libswresample libswscale libavutil`
 
-SRCS = $(wildcard src/*.cpp) \
+VPATH = src src/animators src/objects src/encoders
+
+SRCS = $(wildcard ./*.cpp) \
+	$(wildcard src/*.cpp) \
 	$(wildcard src/animators/*.cpp) \
 	$(wildcard src/objects/*.cpp) \
 	$(wildcard src/encoders/*.cpp)
@@ -21,11 +24,8 @@ OBJS = $(notdir $(SRCS:.cpp=.o))
 vis_test: $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBFLAGS)
 
-%.o: $(SRC) $(DEPS)
+%.o:%.cpp $(DEPS)
 	$(CXX) $(CXXFLAGS) -c -o $@ $< $(LIBFLAGS)
-
-#vis_test.o: vis_test.cpp $(DEPS)
-#	$(CXX) $(CXXFLAGS) -c -o $@ $< $(LIBFLAGS)
 
 .PHONEY: clean
 
