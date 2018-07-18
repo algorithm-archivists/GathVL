@@ -1,5 +1,5 @@
-#ifndef VECTOR_ANIMATOR_H
-#define VECTOR_ANIMATOR_H
+#ifndef GATHVL_VECTOR_ANIMATOR_H
+#define GATHVL_VECTOR_ANIMATOR_H
 
 #include <vector>
 
@@ -30,4 +30,4 @@ struct vector_animator : animator {
         start_point(start_point) {}
 };
 
-#endif //VECTOR_ANIMATOR_H
+#endif //GATHVL_VECTOR_ANIMATOR_H

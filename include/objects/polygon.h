@@ -1,5 +1,5 @@
-#ifndef POLYGON_H
-#define POLYGON_H
+#ifndef GATHVL_POLYGON_H
+#define GATHVL_POLYGON_H
 
 #include <vector>
 
@@ -31,4 +31,4 @@ struct polygon : object {
         center(center) {}
 };
 
-#endif //POLYGON_H
+#endif //GATHVL_POLYGON_H

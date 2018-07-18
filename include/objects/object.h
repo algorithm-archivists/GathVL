@@ -1,5 +1,5 @@
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef GATHVL_OBJECT_H
+#define GATHVL_OBJECT_H
 
 #include <memory>
 #include <vector>
@@ -24,4 +24,4 @@ struct object {
     virtual ~object() {}
 };
 
-#endif //OBJECT_H
+#endif //GATHVL_OBJECT_H

@@ -1,5 +1,5 @@
-#ifndef ELLIPSE_H
-#define ELLIPSE_H
+#ifndef GATHVL_ELLIPSE_H
+#define GATHVL_ELLIPSE_H
 
 #include "object.h"
 #include "../types/color.h"
@@ -25,4 +25,4 @@ struct ellipse : object {
         angles({0.0, 2.0 * M_PI}), rotation(rotation), fill(fill) {}
 };
 
-#endif //ELLIPSE_H
+#endif //GATHVL_ELLIPSE_H

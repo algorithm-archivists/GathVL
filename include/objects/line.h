@@ -1,5 +1,5 @@
-#ifndef LINE_H
-#define LINE_H
+#ifndef GATHVL_LINE_H
+#define GATHVL_LINE_H
 
 #include "object.h"
 #include "../types/color.h"
@@ -19,4 +19,4 @@ struct line : object {
         clr(clr), start(line_start), end(line_end) {}
 };
 
-#endif //LINE_H
+#endif //GATHVL_LINE_H

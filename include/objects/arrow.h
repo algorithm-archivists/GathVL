@@ -1,5 +1,5 @@
-#ifndef ARROW_H
-#define ARROW_H
+#ifndef GATHVL_ARROW_H
+#define GATHVL_ARROW_H
 
 #include "object.h"
 #include "../types/color.h"
@@ -22,4 +22,4 @@ struct arrow : object {
         rotation(rotation) {}
 };
 
-#endif //ARROW_H
+#endif //GATHVL_ARROW_H

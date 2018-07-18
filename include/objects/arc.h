@@ -1,5 +1,5 @@
-#ifndef ARC_H
-#define ARC_H
+#ifndef GATHVL_ARC_H
+#define GATHVL_ARC_H
 
 #include "object.h"
 #include "../types/color.h"
@@ -22,4 +22,4 @@ struct arc : object {
         angles(angles) {}
 };
 
-#endif //ARC_H
+#endif //GATHVL_ARC_H

@@ -1,5 +1,5 @@
-#ifndef LAYER_H
-#define LAYER_H
+#ifndef GATHVL_LAYER_H
+#define GATHVL_LAYER_H
 
 #include <memory>
 #include <vector>
@@ -28,4 +28,4 @@ struct layer {
     void clear();
 };
 
-#endif //LAYER_H
+#endif //GATHVL_LAYER_H

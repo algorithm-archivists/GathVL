@@ -1,8 +1,8 @@
-#ifndef COLOR_H
-#define COLOR_H
+#ifndef GATHVL_COLOR_H
+#define GATHVL_COLOR_H
 
 struct color {
     double r, g, b, a;
 };
 
-#endif //COLOR_H
+#endif //GATHVL_COLOR_H

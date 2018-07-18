@@ -1,5 +1,5 @@
-#ifndef VEC_H
-#define VEC_H
+#ifndef GATHVL_VEC_H
+#define GATHVL_VEC_H
 
 #include <cmath>
 #include <cstdio>
@@ -82,4 +82,4 @@ inline void print(vec v) {
     printf("% .3lf, % .3lf\n", v.x, v.y);
 }
 
-#endif
+#endif //GATHVL_VEC_H

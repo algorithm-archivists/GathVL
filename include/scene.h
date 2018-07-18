@@ -1,5 +1,5 @@
-#ifndef SCENE_H
-#define SCENE_H
+#ifndef GATHVL_SCENE_H
+#define GATHVL_SCENE_H
 
 #include <memory>
 #include <vector>
@@ -42,4 +42,4 @@ struct scene {
     scene(vec scene_size, color bg_color);
 };
 
-#endif //SCENE_H
+#endif //GATHVL_SCENE_H

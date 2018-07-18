@@ -1,5 +1,5 @@
-#ifndef TEXT_H
-#define TEXT_H
+#ifndef GATHVL_TEXT_H
+#define GATHVL_TEXT_H
 
 #include <string>
 
@@ -37,4 +37,4 @@ struct text : object {
         rotation(rotation), font(font) {}
 };
 
-#endif //TEXT_H
+#endif //GATHVL_TEXT_H

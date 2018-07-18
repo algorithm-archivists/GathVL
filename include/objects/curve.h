@@ -1,5 +1,5 @@
-#ifndef CURVE_H
-#define CURVE_H
+#ifndef GATHVL_CURVE_H
+#define GATHVL_CURVE_H
 
 #include "object.h"
 #include "../types/color.h"
@@ -19,4 +19,4 @@ struct curve : object {
         clr(clr), points(points), origin(origin) {}
 };
 
-#endif //CURVE_H
+#endif //GATHVL_CURVE_H

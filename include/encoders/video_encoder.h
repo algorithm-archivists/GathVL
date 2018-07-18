@@ -1,5 +1,5 @@
-#ifndef VIDEO_ENCODER_H
-#define VIDEO_ENCODER_H
+#ifndef GATHVL_VIDEO_ENCODER_H
+#define GATHVL_VIDEO_ENCODER_H
 
 #include <memory>
 #include <string>
@@ -47,4 +47,4 @@ private:
     int frames_per_sec;
 };
 
-#endif //VIDEO_ENCODER_H
+#endif //GATHVL_VIDEO_ENCODER_H

@@ -1,5 +1,5 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#ifndef GATHVL_CAMERA_H
+#define GATHVL_CAMERA_H
 
 #include <memory>
 #include <string>
@@ -44,4 +44,4 @@ private:
     void capture(scene &s);
 };
 
-#endif //CAMERA_H
+#endif //GATHVL_CAMERA_H

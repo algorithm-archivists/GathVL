@@ -1,5 +1,5 @@
-#ifndef RECTANGLE_H
-#define RECTANGLE_H
+#ifndef GATHVL_RECTANGLE_H
+#define GATHVL_RECTANGLE_H
 
 #include "object.h"
 #include "../types/color.h"
@@ -23,4 +23,4 @@ struct rectangle : object {
         rotation(rotation), fill(fill) {}
 };
 
-#endif //RECTANGLE_H
+#endif //GATHVL_RECTANGLE_H

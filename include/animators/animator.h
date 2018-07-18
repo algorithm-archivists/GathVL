@@ -1,5 +1,5 @@
-#ifndef ANIMATOR_H
-#define ANIMATOR_H
+#ifndef GATHVL_ANIMATOR_H
+#define GATHVL_ANIMATOR_H
 
 struct animator {
     int start_frame, end_frame;
@@ -10,4 +10,4 @@ struct animator {
     virtual ~animator() {}
 };
 
-#endif //ANIMATOR_H
+#endif //GATHVL_ANIMATOR_H

@@ -1,5 +1,5 @@
-#ifndef PNG_ENCODER_H
-#define PNG_ENCODER_H
+#ifndef GATHVL_PNG_ENCODER_H
+#define GATHVL_PNG_ENCODER_H
 
 #include <string>
 
@@ -16,4 +16,4 @@ struct png_encoder : encoder {
     png_encoder(std::string url);
 };
 
-#endif //PNG_ENCODER_H
+#endif //GATHVL_PNG_ENCODER_H

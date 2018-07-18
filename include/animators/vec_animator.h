@@ -1,5 +1,5 @@
-#ifndef VEC_ANIMATOR_H
-#define VEC_ANIMATOR_H
+#ifndef GATHVL_VEC_ANIMATOR_H
+#define GATHVL_VEC_ANIMATOR_H
 
 #include "animator.h"
 #include "../types/vec.h"
@@ -15,4 +15,4 @@ struct vec_animator : animator {
         end_vec(endvec) {}
 };
 
-#endif //VEC_ANIMATOR_H
+#endif //GATHVL_VEC_ANIMATOR_H
