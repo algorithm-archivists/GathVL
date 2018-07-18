@@ -181,7 +181,6 @@ video_encoder::video_encoder(std::string url, vec vid_size, int frame_rate)
 
     if (codec->type == AVMEDIA_TYPE_VIDEO) {
         ostream.codec_ctx->codec_id = format->video_codec;
-        ostream.codec_ctx->bit_rate = 400000;
         ostream.codec_ctx->width = static_cast<int>(size.x);
         ostream.codec_ctx->height = static_cast<int>(size.y);
         ostream.codec_ctx->time_base = {1, frames_per_sec};
