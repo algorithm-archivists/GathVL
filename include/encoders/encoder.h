@@ -1,5 +1,5 @@
-#ifndef ENCODER_H
-#define ENCODER_H
+#ifndef GATHVL_ENCODER_H
+#define GATHVL_ENCODER_H
 
 #include <string>
 
@@ -15,4 +15,4 @@ protected:
     std::string url;
 };
 
-#endif //ENCODER_H
+#endif //GATHVL_ENCODER_H

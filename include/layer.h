@@ -1,23 +1,31 @@
-#ifndef LAYER_H
-#define LAYER_H
+#ifndef GATHVL_LAYER_H
+#define GATHVL_LAYER_H
 
 #include <memory>
 #include <vector>
 
 #include <cairo.h>
 
-#include "vec.h"
-#include "color.h"
-#include "shapes.h"
+#include "objects/arc.h"
+#include "objects/arrow.h"
+#include "objects/curve.h"
+#include "objects/ellipse.h"
+#include "objects/line.h"
+#include "objects/object.h"
+#include "objects/polygon.h"
+#include "objects/rectangle.h"
+#include "objects/text.h"
+#include "types/color.h"
+#include "types/vec.h"
 
 struct layer {
-    std::vector<std::shared_ptr<shape>> shapes;
+    std::vector<std::shared_ptr<object>> objects;
 
     void draw(cairo_t *ctx) const;
     void update(int frame);
 
-    void remove_shape(int position);
+    void remove_object(int position);
     void clear();
 };
 
-#endif //LAYER_h
+#endif //GATHVL_LAYER_H

@@ -1,5 +1,5 @@
-#ifndef VIDEO_ENCODER_H
-#define VIDEO_ENCODER_H
+#ifndef GATHVL_VIDEO_ENCODER_H
+#define GATHVL_VIDEO_ENCODER_H
 
 #include <memory>
 #include <string>
@@ -15,7 +15,7 @@ extern "C" {
 }
 
 #include "encoder.h"
-#include "vec.h"
+#include "../types/vec.h"
 
 struct output_stream {
     AVStream *stream;
@@ -32,9 +32,10 @@ struct video_encoder : encoder {
     void encode(cairo_surface_t *image) override;
 
     video_encoder() : video_encoder("/tmp/video.mp4") {}
-    video_encoder(std::string file_url) : video_encoder(file_url, {600, 400}) {}
-    video_encoder(std::string file_url, vec vid_size)
-        : video_encoder(file_url, size, 25) {}
+    video_encoder(std::string file_url) :
+        video_encoder(file_url, {600, 400}) {}
+    video_encoder(std::string file_url, vec vid_size) :
+        video_encoder(file_url, size, 25) {}
     video_encoder(std::string file_url, vec vid_size, int frame_rate);
 
     ~video_encoder();
@@ -46,4 +47,4 @@ private:
     int frames_per_sec;
 };
 
-#endif //VIDEO_ENCODER_H
+#endif //GATHVL_VIDEO_ENCODER_H

@@ -5,18 +5,29 @@ CXX = g++
 CXXFLAGS = -std=c++14 -g -O2 #-Wall -march=native -fopenmp -fno-omit-frame-pointer -flto -Wno-sign-compare
 
 LIBFLAGS = `pkg-config --cflags --libs cairo libavformat libavcodec libswresample libswscale libavutil`
-BINS = vis_test
-OBJ = vis_test.o layer.o scene.o camera.o shapes.o animators.o video_encoder.o png_encoder.o
-DEPS = include/vec.h include/scene.h include/layer.h include/camera.h include/shapes.h include/animators.h include/video_encoder.h include/png_encoder.h include/encoder.h
 
-$(BINS): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(BINS) $^ $(LIBFLAGS)
-	#./vis_test
+VPATH = src src/animators src/objects src/encoders
 
-%.o: src/%.cpp $(DEPS)
+SRCS = $(wildcard ./*.cpp) \
+	$(wildcard src/*.cpp) \
+	$(wildcard src/animators/*.cpp) \
+	$(wildcard src/objects/*.cpp) \
+	$(wildcard src/encoders/*.cpp)
+
+DEPS = $(wildcard include/*.h) \
+	$(wildcard include/animators/*.h) \
+	$(wildcard include/objects/*.h) \
+	$(wildcard include/encoders/*.h)
+
+OBJS = $(notdir $(SRCS:.cpp=.o))
+
+vis_test: $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBFLAGS)
+
+%.o:%.cpp $(DEPS)
 	$(CXX) $(CXXFLAGS) -c -o $@ $< $(LIBFLAGS)
 
+.PHONEY: clean
+
 clean:
-	rm -Rf $(BINS) $(OBJ) file*
-
-
+	rm -Rf vis_test $(OBJS)

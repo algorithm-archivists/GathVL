@@ -1,14 +1,14 @@
-#ifndef SCENE_H
-#define SCENE_H
+#ifndef GATHVL_SCENE_H
+#define GATHVL_SCENE_H
 
 #include <memory>
 #include <vector>
 
 #include <cairo.h>
 
-#include "vec.h"
-#include "color.h"
 #include "layer.h"
+#include "types/color.h"
+#include "types/vec.h"
 
 struct shape;
 struct animator;
@@ -24,7 +24,7 @@ struct scene {
     void draw();
     void update(int frame);
 
-    void add_shape(std::shared_ptr<shape> shp, int layer_pos);
+    void add_object(std::shared_ptr<object> obj, int layer_pos);
 
     void add_layer();
     void add_layers(int num_layers);
@@ -42,4 +42,4 @@ struct scene {
     scene(vec scene_size, color bg_color);
 };
 
-#endif //SCENE_H
+#endif //GATHVL_SCENE_H
