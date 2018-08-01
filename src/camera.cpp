@@ -36,7 +36,7 @@ void camera::clear_encoders() {
 }
 
 camera::camera(vec loc, vec camera_size)
-    : location(-1 * loc), size(camera_size),
+    : location(-loc), size(camera_size),
       image(cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
       static_cast<int>(size.x), static_cast<int>(size.y)),
       cairo_surface_destroy),

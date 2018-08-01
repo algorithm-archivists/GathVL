@@ -6,12 +6,12 @@ void curve::draw(cairo_t *ctx) const {
     cairo_translate(ctx, origin.x, origin.y);
 
     if (!points.empty()) {
-        cairo_move_to(ctx, points[0].x, -1.0 * points[0].y);
+        cairo_move_to(ctx, points[0].x, -points[0].y);
     }
 
     for (const auto& point : points) {
-        cairo_line_to(ctx, point.x, -1.0 * point.y);
-        cairo_move_to(ctx, point.x, -1.0 * point.y);
+        cairo_line_to(ctx, point.x, -point.y);
+        cairo_move_to(ctx, point.x, -point.y);
     }
 
     cairo_stroke(ctx);

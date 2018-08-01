@@ -8,7 +8,7 @@ void arrow::draw(cairo_t *ctx) const {
 
     cairo_move_to(ctx, 0, 0);
     cairo_line_to(ctx, length, 0);
-    cairo_rotate(ctx, -1.0 * M_PI / 4);
+    cairo_rotate(ctx, -M_PI / 4);
     cairo_move_to(ctx, 0, 0);
     cairo_line_to(ctx, 0.25 * length, 0);
     cairo_move_to(ctx, 0, 0);
