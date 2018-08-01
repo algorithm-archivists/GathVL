@@ -26,14 +26,10 @@ void first_scene(camera& cam, scene& world) {
     rec->add_animator<vec_animator>(150, 199, &rec->size, vec{50, 50},
                                     vec{0, 0});
 
-    auto img = std::make_shared<image>("/home/gathros/Desktop/image.png", vec{0, 0},
-                                       M_PI / 4, vec{400, 400});
-
     world.add_layer();
     world.add_object(title, 0);
     world.add_object(ball, 1);
     world.add_object(rec, 1);
-    world.add_object(img, 1);
 
     for (int i = 0; i < 200; ++i) {
         world.update(i);
