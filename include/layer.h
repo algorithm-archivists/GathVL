@@ -10,6 +10,7 @@
 #include "objects/arrow.h"
 #include "objects/curve.h"
 #include "objects/ellipse.h"
+#include "objects/image.h"
 #include "objects/line.h"
 #include "objects/object.h"
 #include "objects/polygon.h"
