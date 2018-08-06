@@ -5,9 +5,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-int subprocess(const std::string& program,
-               const std::vector<std::string>& args) {
-
+int subprocess(const char *program, const std::vector<std::string>& args) {
     std::vector<char *> argv;
 
     for (auto& str : args) {
@@ -19,7 +17,7 @@ int subprocess(const std::string& program,
     int status = 0;
 
     if (pid == 0) {
-        execv(program.data(), argv.data());
+        execv(program, argv.data());
         std::exit(127);
     } else {
         waitpid(pid, &status, 0);

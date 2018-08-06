@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-int subprocess(const std::string& program,
-               const std::vector<std::string>& args);
+int subprocess(const char *program, const std::vector<std::string>& args);
 
 #endif //GATHVL_MAC_H
