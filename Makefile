@@ -6,18 +6,20 @@ CXXFLAGS = -std=c++14 -g -O2 #-Wall -march=native -fopenmp -fno-omit-frame-point
 
 LIBFLAGS = `pkg-config --cflags --libs cairo libavformat libavcodec libswresample libswscale libavutil`
 
-VPATH = src src/animators src/objects src/encoders
+VPATH = src src/animators src/objects src/encoders src/systems
 
 SRCS = $(wildcard ./*.cpp) \
 	$(wildcard src/*.cpp) \
 	$(wildcard src/animators/*.cpp) \
 	$(wildcard src/objects/*.cpp) \
-	$(wildcard src/encoders/*.cpp)
+	$(wildcard src/encoders/*.cpp) \
+	$(wildcard src/systems/*.cpp)
 
 DEPS = $(wildcard include/*.h) \
 	$(wildcard include/animators/*.h) \
 	$(wildcard include/objects/*.h) \
-	$(wildcard include/encoders/*.h)
+	$(wildcard include/encoders/*.h) \
+	$(wildcard include/systems/*.h)
 
 OBJS = $(notdir $(SRCS:.cpp=.o))
 
