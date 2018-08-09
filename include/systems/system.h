@@ -1,9 +1,9 @@
-#ifndef #GATHVL_UNIX_H
-#define #GATHVL_UNIX_H
+#ifndef GATHVL_SYSTEM_H
+#define GATHVL_SYSTEM_H
 
 #include <string>
 #include <vector>
 
 int subprocess(const char *program, const std::vector<std::string>& args);
 
-#endif //GATHVL_UNIX_H
+#endif //GATHVL_SYSTEM_H
