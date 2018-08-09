@@ -1,7 +1,6 @@
 #ifndef GATHVL_IMAGE_H
 #define GATHVL_IMAGE_H
 
-#include <memory>
 #include <string>
 
 #include <cairo.h>
@@ -11,6 +10,7 @@
 
 struct image : object {
     vec location;
+    vec size;
     double rotation;
 
     void draw(cairo_t*) const override;
@@ -26,9 +26,9 @@ struct image : object {
     ~image();
 
 private:
-    vec size;
     unsigned char *image_data;
-    cairo_surface_t *surface;
+    int width;
+    int height;
 };
 
 #endif //GATHVL_IMAGE_H

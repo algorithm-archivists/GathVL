@@ -5,97 +5,101 @@
 #include "../../include/stb_image_resize.h"
 
 #include <cstdlib>
+#include <iostream>
+
+static inline void format_converter(unsigned char *in, unsigned char *out,
+                                    int width, int height) {
+
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width * 4; j += 4) {
+            out[j + 2] = in[j];
+            out[j + 1] = in[j + 1];
+            out[j] = in[j + 2];
+            out[j + 3] = in[j + 3];
+        }
+        out += width * 4;
+        in += width * 4;
+    }
+}
 
 void image::draw(cairo_t *ctx) const {
-    if (surface) {
+    if (image_data) {
+        int stride = 0;
+        unsigned char *data = nullptr;
+        cairo_surface_t *surface;
+
+        if (size.x <= 0 || size.y <= 0 ||
+            (size.x == width && size.y == height)) {
+
+            stride = cairo_format_stride_for_width(CAIRO_FORMAT_ARGB32, width);
+            data = new unsigned char[stride * height];
+
+            if (!data) {
+                std::cout << "Malloc failed in image." << std::endl;
+                return;
+            }
+
+            format_converter(image_data, data, width, height);
+
+            surface =
+                cairo_image_surface_create_for_data(data, CAIRO_FORMAT_ARGB32,
+                                                    width, height, stride);
+        } else {
+            stride = cairo_format_stride_for_width(CAIRO_FORMAT_ARGB32,
+                                                   (int)size.x);
+
+            data = new unsigned char[stride * (int)size.y];
+            unsigned char tmp[(int)(size.x * size.y * 4)];
+
+            if (!data) {
+                std::cout << "Malloc failed in image." << std::endl;
+                return;
+            }
+
+            stbir_resize_uint8(image_data, width, height, 0,
+                               tmp, size.x, size.y, 0, 4);
+
+            format_converter(tmp, data, (int)size.x, (int)size.y);
+
+            surface =
+                cairo_image_surface_create_for_data(data, CAIRO_FORMAT_ARGB32,
+                                                    (int)size.x, (int)size.y,
+                                                    stride);
+        }
+
         cairo_save(ctx);
         cairo_translate(ctx, location.x, location.y);
         cairo_rotate(ctx, rotation);
 
         cairo_set_source_surface(ctx, surface, 0, 0);
-        cairo_rectangle(ctx, 0, 0, size.x, size.y);
+
+        if (size.x <= 0 || size.y <= 0 ||
+            (size.x == width && size.y == height)) {
+            cairo_rectangle(ctx, 0, 0, width, height);
+        } else {
+            cairo_rectangle(ctx, 0, 0, size.x, size.y);
+        }
+
         cairo_clip(ctx);
         cairo_paint(ctx);
 
         cairo_restore(ctx);
+
+        cairo_surface_destroy(surface);
+        delete[] data;
     }
 }
 
-image::image(const std::string& url, vec location, double rotation,
-             vec image_size)
-    : location(location + vec{700,0}), rotation(rotation), size(image_size) {
+image::image(const std::string& url, vec location, double rotation, vec size)
+    : location(location), rotation(rotation), size(size) {
 
-    int width, height;
-    unsigned char *data = stbi_load(url.c_str(), &width, &height, NULL, 4);
+    image_data = stbi_load(url.c_str(), &width, &height, NULL, 4);
 
-    if (!data) {
-        surface = nullptr;
-        return;
+    if (!image_data) {
+        std::cout << "The image " << url << "can't be opened." << std::endl;
     }
-
-    int stride = 0;
-
-    if (size.x <= 0 || size.y <= 0 || (size.x == width && size.y == height)) {
-        size.x = width;
-        size.y = height;
-
-        stride = cairo_format_stride_for_width(CAIRO_FORMAT_ARGB32, size.x);
-
-        image_data = new unsigned char[stride * height];
-
-        if (!image_data) {
-            surface = nullptr;
-            stbi_image_free(data);
-            return;
-        }
-
-        unsigned char *out_row = image_data;
-        unsigned char *in_row = data;
-        for (int i = 0; i < height; ++i) {
-            for (int j = 0; j < width * 4; j += 4) {
-                    out_row[j + 2] = in_row[j];
-                    out_row[j + 1] = in_row[j + 1];
-                    out_row[j] = in_row[j + 2];
-                    out_row[j + 3] = in_row[j + 3];
-            }
-            out_row += width * 4;
-            in_row += width * 4;
-        }
-    } else {
-        stride = cairo_format_stride_for_width(CAIRO_FORMAT_ARGB32, size.x);
-        unsigned char tmp[(int)(size.x * size.y * 4)];
-        image_data = new unsigned char[stride * (int)size.y];
-
-        if (!image_data) {
-            surface = nullptr;
-            stbi_image_free(data);
-            return;
-        }
-
-        stbir_resize_uint8(data, width, height, 0, tmp, size.x, size.y, 0, 4);
-
-        unsigned char *out_row = image_data;
-        unsigned char *in_row = tmp;
-        for (int i = 0; i < size.y; ++i) {
-            for (int j = 0; j < size.x * 4; j += 4) {
-                    out_row[j + 2] = in_row[j];
-                    out_row[j + 1] = in_row[j + 1];
-                    out_row[j] = in_row[j + 2];
-                    out_row[j + 3] = in_row[j + 3];
-            }
-            out_row += (int)size.x * 4;
-            in_row += (int)size.x * 4;
-        }
-    }
-
-    surface =
-        cairo_image_surface_create_for_data(image_data, CAIRO_FORMAT_ARGB32,
-                                            (int)size.x, (int)size.y, stride);
-
-    stbi_image_free(data);
 }
 
 image::~image() {
-    cairo_surface_destroy(surface);
-    delete[] image_data;
+    stbi_image_free(image_data);
 }
