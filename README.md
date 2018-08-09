@@ -8,3 +8,4 @@ GathVL has uses these libraries:
 
 * FFmpeg
 * cairo
+* stb single-file libraries
