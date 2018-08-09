@@ -15,6 +15,7 @@
 #include "objects/object.h"
 #include "objects/polygon.h"
 #include "objects/rectangle.h"
+#include "objects/tex_string.h"
 #include "objects/text.h"
 #include "types/color.h"
 #include "types/vec.h"
