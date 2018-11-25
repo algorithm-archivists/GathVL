@@ -2,7 +2,7 @@
 
 CXX = g++
 #CXXFLAGS = -std=c++14 -g -Wall -march=native -fopenmp -fno-omit-frame-pointer -O2 -flto -Wno-sign-compare -fsanitize=address
-CXXFLAGS = -std=c++14 -g -O2 #-Wall -march=native -fopenmp -fno-omit-frame-pointer -flto -Wno-sign-compare
+CXXFLAGS = -std=c++14 -g -O2 -fPIC#-Wall -march=native -fopenmp -fno-omit-frame-pointer -flto -Wno-sign-compare
 
 LIBFLAGS = `pkg-config --cflags --libs cairo libavformat libavcodec libswresample libswscale libavutil`
 
@@ -23,8 +23,13 @@ DEPS = $(wildcard include/*.h) \
 
 OBJS = $(notdir $(SRCS:.cpp=.o))
 
+LIB_OBJS = $(filter-out vis_test.o, $(OBJS))
+
 vis_test: $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBFLAGS)
+
+lib: $(LIB_OBJS)
+	$(CXX) -shared -Wl,-soname,libgathvl.so.1 -o libgathvl.so.1.0 $^
 
 %.o:%.cpp $(DEPS)
 	$(CXX) $(CXXFLAGS) -c -o $@ $< $(LIBFLAGS)
@@ -32,4 +37,4 @@ vis_test: $(OBJS)
 .PHONEY: clean
 
 clean:
-	rm -Rf vis_test $(OBJS)
+rm -Rf vis_test $(OBJS)
