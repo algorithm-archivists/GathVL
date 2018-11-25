@@ -37,4 +37,4 @@ lib: $(LIB_OBJS)
 .PHONEY: clean
 
 clean:
-rm -Rf vis_test $(OBJS)
+	rm -Rf vis_test $(OBJS)
