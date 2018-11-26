@@ -26,3 +26,5 @@ tags
 
 *.o
 vis_test
+gathvl/
+libgathvl.so

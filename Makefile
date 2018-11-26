@@ -29,7 +29,8 @@ vis_test: $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBFLAGS)
 
 lib: $(LIB_OBJS)
-	$(CXX) -shared -Wl,-soname,libgathvl.so.1 -o libgathvl.so.1.0 $^
+	cp -R include/ gathvl/
+	$(CXX) -shared -Wl,-soname,libgathvl.so -o libgathvl.so $^
 
 %.o:%.cpp $(DEPS)
 	$(CXX) $(CXXFLAGS) -c -o $@ $< $(LIBFLAGS)
@@ -37,4 +38,4 @@ lib: $(LIB_OBJS)
 .PHONEY: clean
 
 clean:
-	rm -Rf vis_test $(OBJS)
+	rm -Rf vis_test libgathvl.so gathvl/ $(OBJS)
