@@ -6,6 +6,7 @@
 
 #include <cairo.h>
 
+#include "../animators/color_animator.h"
 #include "../animators/vec_animator.h"
 #include "../animators/vector_animator.h"
 
