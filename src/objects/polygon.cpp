@@ -13,9 +13,9 @@ void polygon::draw(cairo_t *ctx) const {
 
     for (const auto& point : points) {
         cairo_line_to(ctx, point.x - center.x, point.y - center.y);
-        cairo_move_to(ctx, point.x - center.x, point.y - center.y);
     }
 
+    cairo_close_path(ctx);
     if (fill) {
         cairo_fill(ctx);
     }
