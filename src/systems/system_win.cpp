@@ -13,7 +13,7 @@ int subprocess(const char *program, const std::vector<std::string>& args) {
     }
 
     STARTUPINFO info = {sizeof(info)};
-    PROCESS_INFOMATION process_info;
+    PROCESS_INFORMATION process_info;
 
     if (CreateProcess(NULL, &cmd.front(), NULL, NULL, FALSE, NULL, NULL, NULL,
                       &info, &process_info)) {
