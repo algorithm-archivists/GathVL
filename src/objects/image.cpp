@@ -35,7 +35,7 @@ void image::draw(cairo_t *ctx) const {
             data = new unsigned char[stride * height];
 
             if (!data) {
-                std::cout << "Malloc failed in image." << std::endl;
+                std::cout << "Malloc for data failed in image." << std::endl;
                 return;
             }
 
@@ -49,10 +49,17 @@ void image::draw(cairo_t *ctx) const {
                                                    (int)size.x);
 
             data = new unsigned char[stride * (int)size.y];
-            unsigned char tmp[(int)(size.x * size.y * 4)];
 
             if (!data) {
+                std::cout << "Malloc for data failed in image." << std::endl;
+                return;
+            }
+
+            unsigned char *tmp = new unsigned char[(int)(size.x * size.y * 4)];
+
+            if (!tmp) {
                 std::cout << "Malloc failed in image." << std::endl;
+                delete[] data;
                 return;
             }
 
@@ -65,6 +72,8 @@ void image::draw(cairo_t *ctx) const {
                 cairo_image_surface_create_for_data(data, CAIRO_FORMAT_ARGB32,
                                                     (int)size.x, (int)size.y,
                                                     stride);
+
+            delete[] tmp;
         }
 
         cairo_save(ctx);
