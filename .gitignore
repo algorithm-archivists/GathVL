@@ -28,3 +28,7 @@ tags
 vis_test
 gathvl/
 libgathvl.so
+
+# SCons files
+.sconsign.dblite
+*.os
